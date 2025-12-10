@@ -80,7 +80,7 @@ simulator_clock.set(t_final)
 
 simulator = Simulator(simulator_clock)
 
-VOA = VariableOpticalAttenuator(12)
+VOA = VariableOpticalAttenuator(0)
 AMZI = AsymmetricMachZehnderInterferometer(simulator_clock, time_delay= t_unit)
 
 simulator.set((
@@ -97,8 +97,8 @@ time_data = simulator.get_data()
 # master_laser.display_data(time_data)
 #slave_laser.display_data(time_data)
 
-#display_laser_field(master_laser)
-#display_laser_field(slave_laser)
+display_laser_field(master_laser)
+display_laser_field(slave_laser)
 
 #display_class_instances_data((master_laser, slave_laser), time_data)
 
@@ -120,7 +120,7 @@ simulator.reset(True)
 simulator.simulate()
 time_data = simulator.get_data()
 
-#display_class_instances_data((master_laser, slave_laser), time_data)
+display_class_instances_data((master_laser, slave_laser), time_data)
 #display_laser_field(master_laser)
 #display_laser_field(slave_laser)
 
@@ -154,5 +154,5 @@ time_data = simulator.get_data()
 #display_laser_field(master_laser)
 #display_laser_field(slave_laser)
 
-#display_class_instances_data((master_laser, slave_laser), time_data)
+display_class_instances_data((master_laser, slave_laser), time_data)
 AMZI.display_SPD_data(time_data)
