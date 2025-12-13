@@ -10,7 +10,7 @@ from LaserPy_Quantum import Laser
 ############################################################################
 dt = 1e-12
 t_unit = 1e-9
-t_final = 10 * 1e-9
+t_final = 100 * t_unit
 #sampling_rate = 2 * dt
 
 # Current Constants
@@ -47,7 +47,9 @@ simulator.reset(True)
 def benchmarked_simulate():
     """Wrapper function to benchmark the instance's simulate method."""
     simulator.simulation_clock.set(t_final)
-    return simulator.simulate()
+    simulator.simulate()
+    simulator.reset_data()
+    return 
 
 # ------------------------------------------------------------------
 
