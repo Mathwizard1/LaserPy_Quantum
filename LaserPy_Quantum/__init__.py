@@ -22,7 +22,6 @@ from .SpecializedComponents import AsymmetricMachZehnderInterferometer
 
 from .utils import (
     display_class_instances_data,
-    display_laser_field,
     get_time_delay_phase_correction
 )
 
@@ -46,7 +45,6 @@ __all__ = [
     "AsymmetricMachZehnderInterferometer",
 
     "display_class_instances_data",
-    "display_laser_field",
     "get_time_delay_phase_correction"
 ]
 

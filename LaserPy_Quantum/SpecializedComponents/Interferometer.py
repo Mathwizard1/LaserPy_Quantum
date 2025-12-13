@@ -1,9 +1,8 @@
 from __future__ import annotations
 
 from numpy import (
-    complexfloating,
     ndarray,
-    pi
+    empty, zeros
 )
 
 from ..Components.Component import Component
@@ -16,7 +15,7 @@ from .PhotonDetector import SinglePhotonDetector
 from .SimpleDevices import PhaseSample
 from .SimpleDevices import BeamSplitter
 
-from ..Constants import EMPTY_FIELD
+from ..Photon import Photon, Empty_Photon, Photon_dtype
 
 from ..utils import display_class_instances_data
 
@@ -48,15 +47,29 @@ class AsymmetricMachZehnderInterferometer(Component):
         self._SPD0 = SinglePhotonDetector(save_simulation=self._save_simulation, name="SPD_0")
         self._SPD1 = SinglePhotonDetector(save_simulation=self._save_simulation, name="SPD_π")
 
-        self._electric_field: complexfloating = EMPTY_FIELD
-        """electric_field data for AsymmetricMachZehnderInterferometer"""
+        self._photon: Photon = Empty_Photon
+        """photon data for AsymmetricMachZehnderInterferometer"""
 
-        self._electric_field_port2: complexfloating = EMPTY_FIELD
-        """electric_field_port2 data for AsymmetricMachZehnderInterferometer"""
+        self._photon_port2: Photon = Empty_Photon
+        """photon_port2 data for AsymmetricMachZehnderInterferometer"""
 
         # Delay buffer
         self._buffer_size: int = max(1, int(time_delay / clock.dt))
-        self._field_buffer: list[complexfloating] = []
+        self._buffer_idx: int = 0
+        self._field_buffer: ndarray = zeros(self._buffer_size, dtype=Photon_dtype)
+                
+        # Populate the default record
+        default_record = empty(1, dtype=Photon_dtype)[0]
+        default_record['field'] = Empty_Photon.field
+        default_record['frequency'] = Empty_Photon.frequency
+        default_record['photon_number'] = Empty_Photon.photon_number
+        default_record['source_phase'] = Empty_Photon.source_phase
+        default_record['polarization'] = Empty_Photon.polarization
+        default_record['polarization_basis'] = Empty_Photon.polarization_basis
+        
+        # Fill the entire buffer with this stored default record
+        self._default_record = default_record
+        self._field_buffer[:] = self._default_record
 
     def _handle_SPD_data(self):
         """AsymmetricMachZehnderInterferometer _handle_SPD_data method"""
@@ -76,7 +89,7 @@ class AsymmetricMachZehnderInterferometer(Component):
     def reset_data(self):
         """AsymmetricMachZehnderInterferometer reset_data method"""
         #return super().reset_data()
-        self._field_buffer.clear()
+        self._field_buffer[:] = self._default_record
 
         self._SPD0.reset_data()
         self._SPD1.reset_data()
@@ -88,18 +101,14 @@ class AsymmetricMachZehnderInterferometer(Component):
         self._SPD0.reset(save_simulation)
         self._SPD1.reset(save_simulation)
 
-    def set(self, clock: Clock, time_delay: float, 
-            splitting_ratio_ti: float = 0.5, splitting_ratio_tf: float = 0.5):
-        """AsymmetricMachZehnderInterferometer set method"""
+    def set_beam_splitters(self, splitting_ratio_ti: float = 0.5, splitting_ratio_tf: float = 0.5):
+        """AsymmetricMachZehnderInterferometer set beam splitters method"""
         #return super().set()
 
         # Beam splitters
         self._input_beam_splitter.set(splitting_ratio_ti)
         self._output_beam_joiner.set(splitting_ratio_tf)
 
-        # Delay buffer
-        self._buffer_size = max(1, int(time_delay / clock.dt))
-        self._field_buffer.clear()
 
     def set_phases(self, short_arm_phase:  float|None = None, long_arm_phase:  float|None = None, 
                 short_arm_phase_interval: float|None = None, long_arm_phase_interval: float|None = None):
@@ -111,41 +120,60 @@ class AsymmetricMachZehnderInterferometer(Component):
             self._long_arm_phase_sample.set(long_arm_phase, 
                                         phase_interval= long_arm_phase_interval)
 
-    def simulate(self, electric_field: complexfloating):
+    def simulate(self, photon: Photon):
         """AsymmetricMachZehnderInterferometer simulate method"""
         #return super().simulate(clock)
 
         # input field
-        E_short, E_long = self._input_beam_splitter.simulate(electric_field)
+        photon_short, photon_long = self._input_beam_splitter.simulate(photon)
 
         # long arm
-        E_long = self._long_arm_phase_sample.simulate(E_long)
+        photon_long = self._long_arm_phase_sample.simulate(photon_long)
 
         # Handle buffer
-        self._field_buffer.append(E_long)
-        E_long = self._field_buffer.pop(0) if len(self._field_buffer) > self._buffer_size else EMPTY_FIELD
+        outgoing_photon = self._field_buffer[self._buffer_idx].copy()
+
+        # Update buffer
+        self._field_buffer[self._buffer_idx]['field'] = photon_long.field
+        self._field_buffer[self._buffer_idx]['frequency'] = photon_long.frequency
+        self._field_buffer[self._buffer_idx]['photon_number'] = photon_long.photon_number
+        self._field_buffer[self._buffer_idx]['source_phase'] = photon_long.source_phase
+        self._field_buffer[self._buffer_idx]['polarization'] = photon_long.polarization
+        self._field_buffer[self._buffer_idx]['polarization_basis'] = photon_long.polarization_basis
+        
+        # Stored Photon
+        photon_long = Photon(
+            field=outgoing_photon['field'].item(),
+            frequency=outgoing_photon['frequency'].item(),
+            photon_number=outgoing_photon['photon_number'].item(),
+            source_phase=outgoing_photon['source_phase'].item(),
+            polarization=outgoing_photon['polarization'],            # (complex, 2) should be stored/retrieved intact
+            polarization_basis=outgoing_photon['polarization_basis'] # Enum objects should be stored/retrieved intact
+        )
+
+        self._buffer_idx = (self._buffer_idx + 1) % self._buffer_size
 
         # short arm
-        E_short = self._short_arm_phase_sample.simulate(E_short)
+        photon_short = self._short_arm_phase_sample.simulate(photon_short)
 
         # Recombine
-        self._electric_field, self._electric_field_port2 = self._output_beam_joiner.simulate(E_short, E_long)
+        self._photon, self._photon_port2 = self._output_beam_joiner.simulate(photon_short, photon_long)
 
         # Photon Detection
-        self._SPD0.simulate(self._electric_field_port2)
-        self._SPD1.simulate(self._electric_field)
+        self._SPD0.simulate(self._photon)
+        self._SPD1.simulate(self._photon_port2)
 
     def input_port(self):
         """AsymmetricMachZehnderInterferometer input port method"""
         #return super().input_port()
-        kwargs = {'electric_field':None}
+        kwargs = {'photon':None}
         return kwargs
     
     def output_port(self, kwargs: dict = {}):
         """AsymmetricMachZehnderInterferometer output port method"""
         #return super().output_port(kwargs)
-        kwargs['electric_field'] = self._electric_field
-        kwargs['electric_field_port2'] = self._electric_field_port2
+        kwargs['photon'] = self._photon
+        kwargs['photon_port2'] = self._photon_port2
         return kwargs
     
     def display_SPD_data(self, time_data: ndarray, simulation_keys:tuple[str,...]|None=None):

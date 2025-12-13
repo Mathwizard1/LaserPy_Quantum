@@ -1,6 +1,4 @@
-from numpy import (
-    complexfloating
-)
+from __future__ import annotations
 
 from LaserPy_Quantum.Components.Component import Clock
 
@@ -10,12 +8,7 @@ from ..Components import Connection
 from .ComponentDriver import CurrentDriver
 from .Laser import Laser
 
-from ..Constants import EMPTY_FIELD
-
-from ..utils import (
-    InjectionField,
-    LaserRunnerComponents
-)
+from ..Photon import Photon, Empty_Photon
 
 class VariableOpticalAttenuator(Component):
     """
@@ -24,31 +17,36 @@ class VariableOpticalAttenuator(Component):
     def __init__(self, attenuation_dB: float= 0.0, name: str = "default_variable_optical_attenuator"):
         super().__init__(name)
         self._attenuation_dB = attenuation_dB
-        self._output_field: complexfloating = EMPTY_FIELD
+        self._attenuation_factor = 10 ** (-self._attenuation_dB / 20)
+
+        self._output_photon: Photon = Empty_Photon
 
     def set(self, attenuation_dB: float):
         """VariableOpticalAttenuator set method"""
         #return super().set()
         self._attenuation_dB = attenuation_dB
+        self._attenuation_factor = 10 ** (-self._attenuation_dB / 20)
 
-    def simulate(self, electric_field: complexfloating):
+    def simulate(self, photon: Photon):
         """VariableOpticalAttenuator simulate method"""
         #return super().simulate(args)
+        self._output_photon = Photon.from_photon(photon)
+
         # Calculate attenuation factor on electric field amplitude
-        attenuation_factor = 10 ** (-self._attenuation_dB / 20)
-        self._output_field = electric_field * attenuation_factor
-        return self._output_field
+        self._output_photon.field = self._output_photon.field * self._attenuation_factor
+        self._output_photon.photon_number = self._output_photon.photon_number * (self._attenuation_factor ** 2)
+        return self._output_photon
     
     def input_port(self):
         """VariableOpticalAttenuator input port method"""
         #return super().input_port()
-        kwargs = {'electric_field': None}
+        kwargs = {'photon': None}
         return kwargs
     
     def output_port(self, kwargs: dict = {}):
         """VariableOpticalAttenuator output port method"""
         #return super().output_port(kwargs)
-        kwargs['electric_field'] = self._output_field
+        kwargs['photon'] = self._output_photon
         return kwargs
     
 # class OpticalCirculator(Connection):

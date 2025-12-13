@@ -1,7 +1,11 @@
 from __future__ import annotations
 
 import matplotlib.pyplot as plt
-import numpy as np
+
+from numpy import (
+    ndarray,
+    array, zeros
+)
 
 from ..Constants import FIG_WIDTH, FIG_HEIGHT
 
@@ -169,7 +173,7 @@ class DataComponent(Component):
         self._simulation_data_units = {}
         """DataComponent simulation data units"""
 
-    def _handle_display_data(self, time_data:np.ndarray):
+    def _handle_display_data(self, time_data: ndarray):
         """DataComponent _handle_display_data method"""
         if(self._handle_get_data()):
             return True
@@ -203,7 +207,7 @@ class DataComponent(Component):
         for key in self._simulation_data:
             self._simulation_data[key].clear()
 
-    def display_data(self, time_data:np.ndarray, simulation_keys:tuple[str,...]|None=None):
+    def display_data(self, time_data: ndarray, simulation_keys:tuple[str,...]|None=None):
         """DataComponent display_data method"""        
         
         # Handle cases
@@ -227,7 +231,7 @@ class DataComponent(Component):
         sub_plot_idx = 1
         for key in key_tuple:
             plt.subplot(max_hf_plots, 2, sub_plot_idx)
-            plt.plot(time_data, np.array(self._simulation_data[key]), label=f"{key}")
+            plt.plot(time_data, array(self._simulation_data[key]), label=f"{key}")
 
             plt.xlabel(r"Time $(s)$")
             plt.ylabel(key.capitalize() + self._simulation_data_units[key])
@@ -246,9 +250,9 @@ class DataComponent(Component):
         # Handle cases
         val = self._handle_get_data()
         
-        data_dict: dict[str, np.ndarray] = {}
+        data_dict: dict[str, ndarray] = {}
         for key in self._simulation_data:
-            data_dict[key] = np.zeros(1) if(val) else np.array(self._simulation_data[key])
+            data_dict[key] = zeros(1) if(val) else array(self._simulation_data[key])
         return data_dict
 
     def get_data_units(self):
@@ -285,9 +289,9 @@ class PhysicalComponent(DataComponent, TimeComponent):
         """PhysicalComponent simulate method to override"""
         #return super().simulate(args)
         if(_data):
-            self._data = np.square(_data) * np.sin(100 * clock.t) * np.exp(-clock.t)
+            self._data += 1
         else:
-            self._data = 100 * np.exp(-clock.t)
+            self._data = 100
 
     def input_port(self):
         """PhysicalComponent input port method to override"""

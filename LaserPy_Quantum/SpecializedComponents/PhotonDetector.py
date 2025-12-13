@@ -1,14 +1,16 @@
+from __future__ import annotations
+
 from numpy import (
     random,
-    complexfloating, ndarray,
-    square, abs, mod, exp, cos, angle,
-    pi
+    ndarray,
+    square
 )
 
 from ..Components import DataComponent
 
 from ..Constants import LaserPyConstants
-from ..Constants import ERR_TOLERANCE
+
+from ..Photon import Photon
 
 class SinglePhotonDetector(DataComponent):
     """
@@ -37,41 +39,41 @@ class SinglePhotonDetector(DataComponent):
         time_data = time_data[-len(self._simulation_data['intensity']):]
         super().display_data(time_data, simulation_keys)
 
-    def simulate(self, electric_field: complexfloating):
+    def simulate(self, photon: Photon):
         """SinglePhotonDetector simulate method"""
         #return super().simulate(args)
         
-        self.intensity = square(abs(electric_field))
+        self.intensity = square(photon.amplitude)
 
-        # Total photon count
+        # TODO: Total photon count
         # incident_photons = random.poisson(self.intensity)
-        # self.photon_count = random.binomial(incident_photons, self._Eta)
+        # self.photon_count = random.binomial(photon.photon_number, self._Eta)
 
     def input_port(self):
         """SinglePhotonDetector input port method"""
         #return super().input_port()
-        kwargs = {'electric_field': None}
+        kwargs = {'photon': None}
         return kwargs
 
-class PhaseSensitiveSPD(SinglePhotonDetector):
-    """
-    PhaseSensitiveSPD class
-    """
-    def __init__(self, target_phase: float = 0.0, save_simulation: bool = False, name: str = "default_phase_sensitive_spd"):
-        super().__init__(save_simulation, name)
+# class PhaseSensitiveSPD(SinglePhotonDetector):
+#     """
+#     PhaseSensitiveSPD class
+#     """
+#     def __init__(self, target_phase: float = 0.0, save_simulation: bool = False, name: str = "default_phase_sensitive_spd"):
+#         super().__init__(save_simulation, name)
 
-        self._target_phase = target_phase
-        """target phase data for PhaseSensitiveSPD"""
+#         self._target_phase = target_phase
+#         """target phase data for PhaseSensitiveSPD"""
 
-    def simulate(self, electric_field: complexfloating):
-        """PhaseSensitiveSPD simulate method"""
-        #return super().simulate(electric_field)
+#     def simulate(self, photon: Photon):
+#         """PhaseSensitiveSPD simulate method"""
+#         #return super().simulate(photon)
 
-        # phase shift due to target phase
-        target_phase_norm = mod(self._target_phase, 2 * pi) - pi
-        phase_shift = exp(-1j * target_phase_norm)
+#         # phase shift due to target phase
+#         target_phase_norm = mod(self._target_phase, 2 * pi) - pi
+#         phase_shift = exp(-1j * target_phase_norm)
 
-        # Apply target phase to check interference
-        effective_field = electric_field * phase_shift
+#         # Apply target phase to check interference
+#         effective_field = photon * phase_shift
         
-        super().simulate(effective_field)
+#         super().simulate(effective_field)

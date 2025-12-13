@@ -1,12 +1,11 @@
 from numpy import (
-    complexfloating,
     mod, exp, sqrt,
     pi
 )
 
 from ..Components.Component import Component
 
-from ..Constants import EMPTY_FIELD
+from ..Photon import Photon, Empty_Photon
 
 class PhaseSample(Component):
     """
@@ -22,8 +21,8 @@ class PhaseSample(Component):
         self._phase_change = exp(1j * phase_delay)
         """phase change for PhaseSample"""
 
-        self._electric_field: complexfloating = EMPTY_FIELD
-        """electric_field data for PhaseSample"""
+        self._photon: Photon = Empty_Photon
+        """photon data for PhaseSample"""
 
     def set(self, phase_delay: float, phase_interval: float|None= None):
         """PhaseSample set method"""
@@ -33,24 +32,25 @@ class PhaseSample(Component):
         phase_delay = mod(phase_delay, self._phase_interval)
         self._phase_change = exp(1j * phase_delay)
 
-    def simulate(self, electric_field: complexfloating):
+    def simulate(self, photon: Photon):
         """PhaseSample simulate method"""
         #return super().simulate(args)
+        self._photon = Photon.from_photon(photon)
 
         # Add phase change
-        self._electric_field = self._phase_change * electric_field
-        return self._electric_field
+        self._photon.field = self._photon.field * self._phase_change
+        return self._photon
 
     def input_port(self):
         """PhaseSample input port method"""
         #return super().input_port()
-        kwargs = {'electric_field':None}
+        kwargs = {'photon':None}
         return kwargs
     
     def output_port(self, kwargs: dict = {}):
         """PhaseSample output port method"""
         #return super().output_port(kwargs)
-        kwargs['electric_field'] = self._electric_field
+        kwargs['photon'] = self._photon
         return kwargs
     
 class Mirror(PhaseSample):
@@ -76,9 +76,9 @@ class BeamSplitter(Component):
         self._t = sqrt(splitting_ratio_t)
         self._r = exp(0.5j * pi) * sqrt(1 - splitting_ratio_t)
 
-        # Field variables
-        self._E_transmitted: complexfloating = EMPTY_FIELD
-        self._E_reflected: complexfloating = EMPTY_FIELD
+        # Photon variables
+        self._photon_transmitted: Photon = Empty_Photon
+        self._photon_reflected: Photon = Empty_Photon
 
     def set(self, splitting_ratio_t: float):
         """BeamSplitter reset method"""
@@ -86,24 +86,35 @@ class BeamSplitter(Component):
         self._t = sqrt(splitting_ratio_t)
         self._r = exp(0.5j * pi) * sqrt(1 - splitting_ratio_t)
 
-    def simulate(self, electric_field: complexfloating, electric_field_port2: complexfloating = EMPTY_FIELD):
+    def simulate(self, photon: Photon, photon_port2: Photon|None = None):
         """BeamSplitter simulate method"""
         #return super().simulate(args)
-        self._E_transmitted = self._t * electric_field + self._r * electric_field_port2
-        self._E_reflected = self._r * electric_field + self._t * electric_field_port2
-        return self._E_transmitted, self._E_reflected
+        self._photon_transmitted = Photon.from_photon(photon)
+        if(photon_port2):
+            self._photon_reflected = Photon.from_photon(photon_port2)
+        else:
+            self._photon_reflected = Photon.from_photon(photon)
+
+        # Mixing of fields
+        E_T = self._t * self._photon_transmitted.field + self._r * self._photon_reflected.field
+        E_R = self._r * self._photon_transmitted.field + self._t * self._photon_reflected.field
+
+        # Final photons
+        self._photon_transmitted.field = E_T
+        self._photon_reflected.field = E_R
+        return self._photon_transmitted, self._photon_reflected
 
     def input_port(self):
         """BeamSplitter input port method"""
         #return super().input_port()
         
         # Default port2 electric field
-        kwargs = {'electric_field':None, 'electric_field_port2':EMPTY_FIELD}
+        kwargs = {'photon':None, 'photon_port2':Empty_Photon}
         return kwargs
     
     def output_port(self, kwargs: dict = {}):
         """BeamSplitter output port method"""
         #return super().output_port(kwargs)
-        kwargs['electric_field'] = self._E_transmitted
-        kwargs['electric_field_port2'] = self._E_reflected
+        kwargs['photon'] = self._photon_transmitted
+        kwargs['photon_port2'] = self._photon_reflected
         return kwargs

@@ -1,25 +1,14 @@
-from typing import TypedDict, NamedTuple
+from typing import NamedTuple
 
 import matplotlib.pyplot as plt
 from numpy import (
-    complexfloating,
     ndarray,
-    array, mod, sqrt,
+    array, mod,
     pi
 )
 from .Components import DataComponent
 
 from .Constants import FIG_WIDTH, FIG_HEIGHT
-
-class InjectionField(TypedDict):
-    """
-    InjectionField class\n
-    A dictionary type for {'photon', 'phase', 'electric_field', 'frequency'}.
-    """
-    photon: float
-    phase: float
-    electric_field: complexfloating
-    frequency: float
 
 def display_class_instances_data(class_instances: tuple[DataComponent,...], time_data: ndarray, simulation_keys:tuple[str,...]|None=None):
     """display merged graph for comparision of same class members data"""
@@ -85,28 +74,7 @@ class LaserRunnerComponents(NamedTuple):
     current_driver: CurrentDriver
     laser: Laser
 
-def display_laser_field(laser: Laser):
-    """display complex laser field with relative phase"""
-    plt.figure(figsize=(FIG_WIDTH, FIG_HEIGHT)) # Create a figure for the plot
-    plt.suptitle(f"Field of {laser}")
-    
-    # Magnitude and Phase plot
-    laser_data = laser.get_data()
-    for p, key in enumerate(("photon", "phase")):
-        plt.subplot(1, 2, p + 1)
-        if(key == 'photon'):
-            plt.plot(sqrt(laser_data[key]))
-            plt.ylabel("Magnitude of electric_field")
-        elif(key == 'phase'):
-            phase_angle = mod(laser_data[key], 2 * pi) - pi
-            plt.plot(phase_angle)
-            plt.ylabel("Phase of electric_field")
-        plt.grid()
-
-    plt.tight_layout()
-    plt.show()
-
 def get_time_delay_phase_correction(laser: Laser, time_delay: float):
     """calculate and return the phase correction for given time_delay"""
-    phase_correction:float = mod(2 * pi * laser._free_running_freq * time_delay, 2 * pi) - pi
+    phase_correction:float = mod(laser._free_running_freq * time_delay, 2 * pi) - pi
     return phase_correction

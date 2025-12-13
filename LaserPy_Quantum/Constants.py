@@ -5,12 +5,6 @@ from enum import Enum
 from importlib import resources
 import json
 
-from numpy import (
-    complexfloating,
-    exp,
-    pi
-)
-
 #import rust_optimizer
 
 # fixed Scientific Constants
@@ -21,7 +15,7 @@ class UniversalConstants(float, Enum):
 
     CHARGE = 1.602 * (1.0e-19)
     """
-    single unit of charge of elctron / proton
+    single unit of Charge of elctron / proton (magnitude)
     """
 
     H = 6.626 * (1.0e-34)
@@ -29,9 +23,19 @@ class UniversalConstants(float, Enum):
     Plank's Constant 
     """
 
+    HBAR = 1.054 * (1.0e-34)
+    """
+    reduced Plank's Constant 
+    """
+
     C = 2.997 * (1.0e+8)
     """
     Speed of light in vacuum 
+    """
+
+    EPSILON_0 = 8.8541878128e-12
+    """
+    Permittivity of free space
     """
 
 class LaserPyConstants:
@@ -64,8 +68,6 @@ class LaserPyConstants:
 LaserPyConstants.load_from_json()
 
 ERR_TOLERANCE = 1.0e-12
-
-EMPTY_FIELD: complexfloating = ERR_TOLERANCE * exp(1j * 0)
 
 FIG_WIDTH = 12
 FIG_HEIGHT = 6

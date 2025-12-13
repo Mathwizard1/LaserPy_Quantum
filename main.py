@@ -13,7 +13,6 @@ from LaserPy_Quantum import VariableOpticalAttenuator
 from LaserPy_Quantum import AsymmetricMachZehnderInterferometer
 from LaserPy_Quantum import (
     display_class_instances_data, 
-    display_laser_field,
     get_time_delay_phase_correction
 )
 
@@ -82,7 +81,7 @@ simulator_clock.set(t_final)
 
 simulator = Simulator(simulator_clock)
 
-VOA = VariableOpticalAttenuator(12)
+VOA = VariableOpticalAttenuator(5)
 AMZI = AsymmetricMachZehnderInterferometer(simulator_clock, time_delay= t_unit)
 
 simulator.set((
@@ -95,12 +94,6 @@ simulator.reset(True)
 
 simulator.simulate()
 time_data = simulator.get_data()
-
-# master_laser.display_data(time_data)
-#slave_laser.display_data(time_data)
-
-#display_laser_field(master_laser)
-#display_laser_field(slave_laser)
 
 #display_class_instances_data((master_laser, slave_laser), time_data)
 
@@ -117,7 +110,8 @@ slave_laser.set_slave_Laser()
 simulator.set((
     Connection(simulator_clock, (current_driver1, current_driver2)),
     Connection(current_driver1, master_laser),
-    Connection((current_driver2, master_laser), slave_laser),
+    Connection(master_laser, VOA),
+    Connection((current_driver2, VOA), slave_laser),
 ))
 
 simulator.reset(True)
@@ -126,8 +120,6 @@ simulator.simulate()
 time_data = simulator.get_data()
 
 #display_class_instances_data((master_laser, slave_laser), time_data)
-#display_laser_field(master_laser)
-#display_laser_field(slave_laser)
 
 #exit(code= 0)
 ############################################################################
@@ -147,9 +139,9 @@ current_driver1.set(mBase, (mBase, mModulation), mod_func)
 simulator.set((
     Connection(simulator_clock, (current_driver1, current_driver2)),
     Connection(current_driver1, master_laser),
-    Connection((current_driver2, master_laser), slave_laser),
-    Connection(slave_laser, VOA),
-    Connection(VOA, AMZI)
+    Connection(master_laser, VOA),
+    Connection((current_driver2, VOA), slave_laser),
+    Connection(slave_laser, AMZI)
 ))
 
 simulator.reset(True)
@@ -158,11 +150,6 @@ AMZI.set_phases(short_arm_phase= get_time_delay_phase_correction(slave_laser, ti
 
 simulator.simulate()
 time_data = simulator.get_data()
-#master_laser.display_data(time_data)
-#slave_laser.display_data(time_data)
 
-#display_laser_field(master_laser)
-#display_laser_field(slave_laser)
-
-#display_class_instances_data((master_laser, slave_laser), time_data)
+display_class_instances_data((master_laser, slave_laser), time_data)
 AMZI.display_SPD_data(time_data)
