@@ -1,7 +1,8 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field as data_field
-from enum import Enum
+
+from .QuantumOptics import PolarizationBasis
 
 from numpy import (
     linalg, 
@@ -10,13 +11,6 @@ from numpy import (
 )
 
 from .Constants import ERR_TOLERANCE
-
-class PolarizationBasis(Enum):
-    """Polarization representation basis"""
-    LINEAR_HV = "HV"        # Horizontal/Vertical
-    LINEAR_DA = "DA"        # Diagonal/Anti-diagonal  
-    CIRCULAR_RL = "RL"      # Right/Left circular
-    ELLIPTICAL = "ellip"    # General elliptical
 
 """ Photon dtype for Photon class"""
 Photon_dtype = dtype([

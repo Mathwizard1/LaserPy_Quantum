@@ -20,6 +20,8 @@ from .SpecializedComponents import Laser
 from .SpecializedComponents import VariableOpticalAttenuator
 from .SpecializedComponents import AsymmetricMachZehnderInterferometer
 
+from .Photon import Photon
+
 from .utils import (
     display_class_instances_data,
     get_time_delay_phase_correction
@@ -44,10 +46,12 @@ __all__ = [
     "VariableOpticalAttenuator",
     "AsymmetricMachZehnderInterferometer",
 
+    "Photon",
+
     "display_class_instances_data",
     "get_time_delay_phase_correction"
 ]
 
-__version__ = '0.0.8'
+__version__ = '0.0.9'
 __author__ = 'Anshurup Gupta'
 __description__ = 'A high-level, open-source Python library designed for the theoretical simulation of laser systems'
