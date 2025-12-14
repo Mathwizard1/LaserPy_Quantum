@@ -24,3 +24,5 @@ FOR /D %%i IN (*.egg-info) DO (
 :: Execute the build command. 
 call ".\.venv\Scripts\Activate.bat"
 python -m build
+
+python -m twine upload dist/*
