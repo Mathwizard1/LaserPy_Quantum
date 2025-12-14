@@ -47,7 +47,6 @@ add_module_names = False
 # -- Options for HTML output -------------------------------------------------
 html_theme = 'sphinx_rtd_theme'      # Beautiful Read the Docs theme
 html_theme_options = {
-    'display_version': True,
     'collapse_navigation': True,
     'sticky_navigation': True,
     'navigation_depth': 4,
@@ -60,9 +59,7 @@ html_static_path = ['_static']
 #html_favicon = '_static/favicon.ico' # Add favicon later
 
 html_context = {
-    'display_github': True,
+    'display_github': False,
     'github_user': 'Mathwizard1',
     'github_repo': 'LaserPy_Quantum',
-    'github_version': 'main',
-    'github_url': '',
 }

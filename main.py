@@ -95,7 +95,7 @@ simulator.reset(True)
 simulator.simulate()
 time_data = simulator.get_data()
 
-#display_class_instances_data((master_laser, slave_laser), time_data)
+display_class_instances_data((master_laser, slave_laser), time_data)
 
 #exit(code= 0)
 ############################################################################
@@ -119,7 +119,7 @@ simulator.reset(True)
 simulator.simulate()
 time_data = simulator.get_data()
 
-#display_class_instances_data((master_laser, slave_laser), time_data)
+display_class_instances_data((master_laser, slave_laser), time_data)
 
 #exit(code= 0)
 ############################################################################

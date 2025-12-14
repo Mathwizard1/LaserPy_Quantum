@@ -23,6 +23,7 @@ Photon_dtype = dtype([
 ])
 
 def default_polarization():
+    """:meta private:"""
     return array([1.0 + 0j, 0.0 + 0j], dtype=complex)
 
 @dataclass(slots= True)
@@ -60,12 +61,12 @@ class Photon:
 
     @property
     def amplitude(self) -> float:
-        """|E| of the overall field envelope"""
+        """amplitude (V/m) of the field"""
         return abs(self.field)
 
     @property
     def phase(self) -> float:
-        """Arg(E) in radians"""
+        """phase (rad) of the field"""
         return float(angle(self.field))
 
     def normalized_polarization_vector(self) -> ndarray:
@@ -74,6 +75,6 @@ class Photon:
         return self.polarization / n if n > 0 else self.polarization
 
     def __repr__(self):
-        return (f"Photon(f={self.frequency:.4e}nm, |E|={self.amplitude:.4e}V/m, φ={self.phase:.2f}rad)")
+        return (f"Photon(ω={self.frequency:.4e}rad/s, |E|={self.amplitude:.4e}V/m, φ={self.phase:.2f}rad)")
 
 Empty_Photon = Photon(ERR_TOLERANCE + 0j, ERR_TOLERANCE)

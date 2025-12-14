@@ -6,59 +6,23 @@
 LaserPy_Quantum Documentation
 =============================
 
-Welcome to **LaserPy_Quantum** - Laser physics simulation utilities!
+Welcome to `LaserPy_Quantum <https://github.com/Mathwizard1/LaserPy_Quantum>`__
+
+**LaserPy_Quantum** provides an intuitive interface for simulating complex laser interactions, current drivers, and interferometer setups, with plans to offload performance-critical components to Rust for high-speed numerical computations. A *high-level, open-source Python library designed for the theoretical simulation of laser systems* in quantum communication and cryptographic protocols.
 
 .. toctree::
-   :maxdepth: 4
-   :caption: Contents:
+   :maxdepth: 2
 
-API Reference
-=============
+   api_Components
+   api_SpecializedComponents
+   api_Others
+
+Top-level namespace
+-------------------
 
 .. automodule:: LaserPy_Quantum
    :members:
    :undoc-members:
    :show-inheritance:
-
-Components
-==========
-
-.. automodule:: LaserPy_Quantum.Components.Component
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-.. automodule:: LaserPy_Quantum.Components.Signal
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-.. automodule:: LaserPy_Quantum.Components.Simulator
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Specialized Components
-======================
-
-.. automodule:: LaserPy_Quantum.SpecializedComponents
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Photon
-======
-
-.. automodule:: LaserPy_Quantum.Photon
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Utilities
-=========
-
-.. automodule:: LaserPy_Quantum.utils
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
+   :exclude-members: __version__, __author__, __description__
+   :no-index:

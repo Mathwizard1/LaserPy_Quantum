@@ -1,0 +1,139 @@
+class BankAccount:
+    """
+    Represents a simple bank account with deposit and withdrawal functionality.
+
+    This class manages user balance, account holder name, and account number.
+    It provides methods to deposit, withdraw, and check balance.
+
+    Attributes
+    ----------
+    account_holder : str
+        Name of the account holder.
+    account_number : str
+        Unique account identifier.
+    balance : float
+        Current balance in the account.
+    """
+
+    def __init__(self, account_holder, account_number, initial_balance=0.0):
+        """
+        Initialize a new bank account.
+
+        Parameters
+        ----------
+        account_holder : str
+            Name of the account holder.
+        account_number : str
+            Unique account number (e.g., "ACC001").
+        initial_balance : float, optional
+            Starting balance. Defaults to 0.0.
+        """
+        self.account_holder = account_holder
+        self.account_number = account_number
+        self.balance = initial_balance
+
+    def deposit(self, amount):
+        """
+        Add money to the account.
+
+        Parameters
+        ----------
+        amount : float
+            Amount to deposit in dollars.
+
+        Returns
+        -------
+        float
+            The new balance after deposit.
+
+        Raises
+        ------
+        ValueError
+            If amount is negative or zero.
+
+        Examples
+        --------
+        >>> account = BankAccount("John", "ACC001", 100)
+        >>> account.deposit(50)
+        150.0
+        """
+        if amount <= 0:
+            raise ValueError("Deposit amount must be positive")
+        self.balance += amount
+        return self.balance
+
+    def withdraw(self, amount):
+        """
+        Remove money from the account.
+
+        Parameters
+        ----------
+        amount : float
+            Amount to withdraw in dollars.
+
+        Returns
+        -------
+        float
+            The new balance after withdrawal.
+
+        Raises
+        ------
+        ValueError
+            If amount is negative, zero, or exceeds balance.
+
+        Examples
+        --------
+        >>> account = BankAccount("John", "ACC001", 100)
+        >>> account.withdraw(30)
+        70.0
+        """
+        if amount <= 0:
+            raise ValueError("Withdrawal amount must be positive")
+        if amount > self.balance:
+            raise ValueError("Insufficient funds")
+        self.balance -= amount
+        return self.balance
+
+    def get_balance(self):
+        """
+        Retrieve the current account balance.
+
+        Returns
+        -------
+        float
+            The current balance in dollars.
+
+        Examples
+        --------
+        >>> account = BankAccount("John", "ACC001", 100)
+        >>> account.get_balance()
+        100.0
+        """
+        return self.balance
+
+    @classmethod
+    def from_dict(cls, data):
+        """
+        Create a BankAccount from a dictionary.
+
+        This class method allows creating an account from a dictionary
+        containing account information.
+
+        Parameters
+        ----------
+        data : dict
+            Dictionary with keys 'holder', 'number', 'balance'.
+
+        Returns
+        -------
+        BankAccount
+            A new BankAccount instance.
+
+        Examples
+        --------
+        >>> acc_data = {'holder': 'Jane', 'number': 'ACC002', 'balance': 500}
+        >>> account = BankAccount.from_dict(acc_data)
+        >>> account.account_holder
+        'Jane'
+        """
+        return cls(data['holder'], data['number'], data['balance'])

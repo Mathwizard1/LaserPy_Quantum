@@ -63,8 +63,8 @@ def display_class_instances_data(class_instances: tuple[DataComponent,...], time
     plt.show()
         
 ########## Circulator Dependency Resolved ##########
-from .SpecializedComponents import CurrentDriver
-from .SpecializedComponents import Laser
+from .SpecializedComponents.ComponentDriver import CurrentDriver
+from .SpecializedComponents.Laser import Laser
 
 class LaserRunnerComponents(NamedTuple):
     """
@@ -75,6 +75,19 @@ class LaserRunnerComponents(NamedTuple):
     laser: Laser
 
 def get_time_delay_phase_correction(laser: Laser, time_delay: float):
-    """calculate and return the phase correction for given time_delay"""
+    """
+    Calculate the phase correction for a given time delay.
+
+    Parameters
+    ----------
+    laser : Laser
+        Laser instance for which we want the phase correction
+    time_delay : float
+
+    Returns
+    -------
+    float
+        Phase correction in radians in the range [-pi, pi)
+    """
     phase_correction:float = mod(laser._free_running_freq * time_delay, 2 * pi) - pi
     return phase_correction
