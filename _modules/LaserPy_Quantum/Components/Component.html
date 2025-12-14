@@ -1,0 +1,681 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LaserPy_Quantum.Components.Component &mdash; LaserPy_Quantum 0.0.9 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=f7cdbf68"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            LaserPy_Quantum
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_Components.html">Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_SpecializedComponents.html">Specialized Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_Others.html">Photon and Utilities</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">LaserPy_Quantum</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">LaserPy_Quantum.Components.Component</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for LaserPy_Quantum.Components.Component</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">array</span><span class="p">,</span> <span class="n">zeros</span>
+<span class="p">)</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">..Constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">FIG_WIDTH</span><span class="p">,</span> <span class="n">FIG_HEIGHT</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">CLASSID</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is a private class.</span>
+<span class="sd">    </span>
+<span class="sd">    This class manages its child classes&#39; ids and stores references.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    class_id : int</span>
+<span class="sd">        Id of the child class, based on that particular classes&#39; instance sequence</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">######  Special Component Registry  #######</span>
+    <span class="n">_Component_registry</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">__init_subclass__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init_subclass__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">_instances</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Component</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">_Component_registry</span><span class="p">[</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_instances</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1">## Added class_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">class_id</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_instances</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">_instances</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="c1"># type: ignore</span>
+
+    <span class="c1"># @classmethod</span>
+    <span class="c1"># def get_all_Component_registry(cls):</span>
+    <span class="c1">#     &quot;&quot;&quot;get_all_Component_registry method&quot;&quot;&quot;</span>
+    <span class="c1">#     return dict(CLASSID._Component_registry)</span>
+    <span class="c1">######  ##########################  #######</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Component</span><span class="p">(</span><span class="n">CLASSID</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents the base component class.</span>
+
+<span class="sd">    This class manages name and simulation boolean.</span>
+
+<span class="sd">    It provides methods which are to be overriden by its child classes.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name : str = `&quot;default_component&quot;`</span>
+<span class="sd">        Name of the component</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name : str</span>
+<span class="sd">        Name of the component</span>
+<span class="sd">    _save_simulation: bool = `False`</span>
+<span class="sd">        Boolean for storing simulation data of the component</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="s2">&quot;default_component&quot;</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Component name data&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_save_simulation</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Component save simulation data&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Component __repr__ method (to override)</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str</span>
+<span class="sd">            Component: {self.name} id:{self.class_id}</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Component: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> id:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">class_id</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">store_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Component store_data method (to override)</span>
+
+<span class="sd">        Empty method</span>
+<span class="sd">        ------------</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">reset_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Component reset_data method (to override)</span>
+<span class="sd">        </span>
+<span class="sd">        Empty method</span>
+<span class="sd">        ------------</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Component reset method (to override)</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        args : any = `None`</span>
+<span class="sd">            </span>
+<span class="sd">        Empty method</span>
+<span class="sd">        ------------</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Component set method (to override)</span>
+
+<span class="sd">        Empty method</span>
+<span class="sd">        ------------</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">simulate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Component simulate method (to override)</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        args : any = `None`</span>
+<span class="sd">            </span>
+<span class="sd">        Empty method</span>
+<span class="sd">        ------------</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">input_port</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Component input port method (to override)</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        kwargs : dict = `{}`</span>
+<span class="sd">            Empty dictionary as no requirements for simulate()</span>
+<span class="sd">        &quot;&quot;&quot;</span>  
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">return</span> <span class="n">kwargs</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">output_port</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">:</span><span class="nb">dict</span><span class="o">=</span><span class="p">{}):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Component output port method (to override)</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        kwargs : dict = `{}`</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        kwargs : dict</span>
+<span class="sd">            Unmodified dictionary as no data to send</span>
+<span class="sd">        &quot;&quot;&quot;</span> 
+        <span class="k">return</span> <span class="n">kwargs</span>
+
+<div class="viewcode-block" id="Clock">
+<a class="viewcode-back" href="../../../index.html#LaserPy_Quantum.Components.Clock">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Clock</span><span class="p">(</span><span class="n">Component</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents the clock class.</span>
+
+<span class="sd">    This class manages the time counter and all operations on it.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dt: float</span>
+<span class="sd">        Time step variable for the simulation</span>
+<span class="sd">    sampling_rate: int = `1`</span>
+<span class="sd">        Integral postive multiple of **dt**, simulation data are stored on these time steps</span>
+<span class="sd">    name : str = `&quot;default_clock&quot;`</span>
+<span class="sd">        Name of the component</span>
+<span class="sd">        </span>
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dt: float</span>
+<span class="sd">        Time step variable for the simulation</span>
+<span class="sd">    _sampling_rate: float</span>
+<span class="sd">        Integral postive multiple of **dt**, simulation data are stored on these time steps</span>
+<span class="sd">    t : float = `0.0`</span>
+<span class="sd">        Time counter variable for simulation</span>
+<span class="sd">    _t_sample : float = `0.0`</span>
+<span class="sd">        Helper for sampling rate</span>
+<span class="sd">    running : bool = `True`</span>
+<span class="sd">        Clock status for time updates</span>
+<span class="sd">    _t_final : float = `0.0`</span>
+<span class="sd">        Time at which to stop simulation and set **running** to `False`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt</span><span class="p">:</span><span class="nb">float</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="p">:</span><span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="s2">&quot;default_clock&quot;</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dt</span> <span class="o">=</span> <span class="n">dt</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Clock Delta time data&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sampling_rate</span> <span class="o">=</span> <span class="n">dt</span> <span class="o">*</span> <span class="p">(</span><span class="n">sampling_rate</span> <span class="k">if</span><span class="p">(</span><span class="n">sampling_rate</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="k">else</span> <span class="mi">1</span><span class="p">)</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Clock sampling rate data&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Clock time data&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_t_sample</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Clock sample time data&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Clock running state data&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_t_final</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Clock final time data&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Clock.set">
+<a class="viewcode-back" href="../../../index.html#LaserPy_Quantum.Components.Clock.set">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t_final</span><span class="p">:</span><span class="nb">float</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span><span class="nb">float</span><span class="o">|</span><span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Clock set method</span>
+
+<span class="sd">        Sets **t_final** and **t**.</span>
+<span class="sd">        Also sets **running** to `True`.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        t_final : float</span>
+<span class="sd">        t : float = `None`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1">#return super().set()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_t_final</span> <span class="o">=</span> <span class="n">t_final</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">t</span><span class="p">):</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">=</span> <span class="n">t</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_t_sample</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="Clock.update">
+<a class="viewcode-back" href="../../../index.html#LaserPy_Quantum.Components.Clock.update">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Clock update method</span>
+
+<span class="sd">        Checks if **t** exceeded **_t_final**, then sets **running** to `False` and returns.</span>
+<span class="sd">        Else it updates both **t** and **_t_sample** by one time step, ie **dt**.</span>
+<span class="sd">        If **_t_sample** exceeds **_sampling_rate** then sets **_t_sample** to `0.0`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1">#return super().update()</span>
+        <span class="k">if</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_t_final</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dt</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_t_sample</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dt</span>
+        <span class="k">if</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_t_sample</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sampling_rate</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">_t_sample</span> <span class="o">=</span> <span class="mf">0.0</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_should_sample</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Clock _should_sample method</span>
+<span class="sd">        </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            Returns `True` only when **_t_sample** is `0.0`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_t_sample</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Clock.output_port">
+<a class="viewcode-back" href="../../../index.html#LaserPy_Quantum.Components.Clock.output_port">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">output_port</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Clock output port method</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        kwargs : dict = `{}`</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        kwargs : dict</span>
+<span class="sd">            Returns dict with `&#39;clock&#39;:self` data</span>
+<span class="sd">        &quot;&quot;&quot;</span>  
+        <span class="c1">#return super().output_port(kwargs)</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;clock&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="k">return</span> <span class="n">kwargs</span></div>
+</div>
+
+
+<div class="viewcode-block" id="TimeComponent">
+<a class="viewcode-back" href="../../../api_Components.html#LaserPy_Quantum.Components.TimeComponent">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TimeComponent</span><span class="p">(</span><span class="n">Component</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents the base timecomponent class.</span>
+
+<span class="sd">    This class is the base class for all components which are time dependent on clock data.</span>
+
+<span class="sd">    It provides methods for simulate() and input_port() based on clock data.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name : str = `&quot;default_time_component&quot;`</span>
+<span class="sd">        Name of the component</span>
+<span class="sd">        </span>
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    _data: any = `0`</span>
+<span class="sd">        A container for specific data according to child classes</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="s2">&quot;default_time_component&quot;</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;data for TimeComponent&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TimeComponent.simulate">
+<a class="viewcode-back" href="../../../api_Components.html#LaserPy_Quantum.Components.TimeComponent.simulate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">simulate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clock</span><span class="p">:</span><span class="n">Clock</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TimeComponent simulate method (to override)</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        clock : **Clock**</span>
+<span class="sd">            </span>
+<span class="sd">        Empty method</span>
+<span class="sd">        ------------</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1">#return super().simulate(args)</span>
+        <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="TimeComponent.input_port">
+<a class="viewcode-back" href="../../../api_Components.html#LaserPy_Quantum.Components.TimeComponent.input_port">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">input_port</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TimeComponent input port method (to override)</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        kwargs : dict</span>
+<span class="sd">            Returns dict with `&#39;clock&#39;:None` data as requirements for simulate()</span>
+<span class="sd">        &quot;&quot;&quot;</span>  
+        <span class="c1">#return super().input_port()</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;clock&#39;</span><span class="p">:</span><span class="kc">None</span><span class="p">}</span>
+        <span class="k">return</span> <span class="n">kwargs</span></div>
+</div>
+
+
+<div class="viewcode-block" id="DataComponent">
+<a class="viewcode-back" href="../../../api_Components.html#LaserPy_Quantum.Components.DataComponent">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">DataComponent</span><span class="p">(</span><span class="n">Component</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents the base datacomponent class.</span>
+
+<span class="sd">    This class manages simulation data, and their corresponding data units.</span>
+
+<span class="sd">    It provides methods for data handling like get, display, store.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name : str = `&quot;default_data_component&quot;`</span>
+<span class="sd">        Name of the component</span>
+<span class="sd">        </span>
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    _simulation_data: dict = `{}`</span>
+<span class="sd">        A dict storing keys and it stores values for those keys, at each sampling time step</span>
+<span class="sd">    _simulation_data_units: dict = `{}`</span>
+<span class="sd">        A dict storing units corresponding to the keys</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="s2">&quot;default_data_component&quot;</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_simulation_data</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;DataComponent simulation data&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_simulation_data_units</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;DataComponent simulation data units&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_handle_display_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_data</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        DataComponent _handle_display_data method</span>
+
+<span class="sd">        Checks if data can be displayed based on **_handle_get_data()**.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        time_data: ndarray</span>
+<span class="sd">            A numpy array containing sequential time data</span>
+<span class="sd">        </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            Returns `True` when data cannot be displayed</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_handle_get_data</span><span class="p">()):</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">elif</span><span class="p">(</span><span class="n">time_data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> id:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">class_id</span><span class="si">}</span><span class="s2"> got None for time_data&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_simulation_data</span><span class="p">:</span>
+                <span class="k">if</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">time_data</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_simulation_data</span><span class="p">[</span><span class="n">key</span><span class="p">])):</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> id:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">class_id</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2"> has </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_simulation_data</span><span class="p">[</span><span class="n">key</span><span class="p">])</span><span class="si">}</span><span class="s2"> while time_data has </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">time_data</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_handle_get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        DataComponent _handle_get_data method</span>
+
+<span class="sd">        Handles data checks and key matches internally.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            Returns `True` when data is not saved or empty due to errors</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span><span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_save_simulation</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> id:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">class_id</span><span class="si">}</span><span class="s2"> did not save simulation data&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">elif</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_simulation_data</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> id:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">class_id</span><span class="si">}</span><span class="s2"> simulation data is empty&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+<div class="viewcode-block" id="DataComponent.store_data">
+<a class="viewcode-back" href="../../../api_Components.html#LaserPy_Quantum.Components.DataComponent.store_data">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">store_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        DataComponent store_data method</span>
+
+<span class="sd">        Stores data for each key based on matching name of variable and key.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_simulation_data</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_simulation_data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="DataComponent.reset_data">
+<a class="viewcode-back" href="../../../api_Components.html#LaserPy_Quantum.Components.DataComponent.reset_data">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reset_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        DataComponent reset_data method</span>
+
+<span class="sd">        Clears all key data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_simulation_data</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_simulation_data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="DataComponent.display_data">
+<a class="viewcode-back" href="../../../api_Components.html#LaserPy_Quantum.Components.DataComponent.display_data">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">display_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_data</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span> <span class="n">simulation_keys</span><span class="p">:</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span><span class="o">...</span><span class="p">]</span><span class="o">|</span><span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        DataComponent display_data method</span>
+<span class="sd">        </span>
+<span class="sd">        Plots stored data of the component based on **time_data** and **simulation_keys**.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        time_data: ndarray</span>
+<span class="sd">            A numpy array containing sequential time data</span>
+
+<span class="sd">        simulation_keys: tuple[str, ...] = `None`</span>
+<span class="sd">            An optional tuple of strings containing keys for which to plot data, Default all defined keys</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        
+        <span class="c1"># Handle cases</span>
+        <span class="k">if</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_handle_display_data</span><span class="p">(</span><span class="n">time_data</span><span class="p">)):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">id:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">class_id</span><span class="si">}</span><span class="s2"> cannot display data&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">FIG_WIDTH</span><span class="p">,</span> <span class="n">FIG_HEIGHT</span><span class="p">))</span>
+
+        <span class="n">key_tuple</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_simulation_data_units</span><span class="p">)</span>
+        
+        <span class="c1"># Display fixed tuple of data</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">simulation_keys</span><span class="p">):</span>
+            <span class="n">key_list</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">simulation_keys</span><span class="p">:</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_simulation_data_units</span><span class="p">):</span>
+                    <span class="n">key_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+            <span class="n">key_tuple</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">key_list</span><span class="p">)</span>
+
+        <span class="n">max_hf_plots</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">key_tuple</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">sub_plot_idx</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">key_tuple</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">max_hf_plots</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">sub_plot_idx</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_data</span><span class="p">,</span> <span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_simulation_data</span><span class="p">[</span><span class="n">key</span><span class="p">]),</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Time $(s)$&quot;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">key</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_simulation_data_units</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+            
+            <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+            <span class="n">sub_plot_idx</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">_id:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">class_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="DataComponent.get_data">
+<a class="viewcode-back" href="../../../api_Components.html#LaserPy_Quantum.Components.DataComponent.get_data">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;DataComponent get_data method&quot;&quot;&quot;</span>
+
+        <span class="c1"># Handle cases</span>
+        <span class="n">val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_get_data</span><span class="p">()</span>
+        
+        <span class="n">data_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_simulation_data</span><span class="p">:</span>
+            <span class="n">data_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="k">else</span> <span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_simulation_data</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">data_dict</span></div>
+
+
+<div class="viewcode-block" id="DataComponent.get_data_units">
+<a class="viewcode-back" href="../../../api_Components.html#LaserPy_Quantum.Components.DataComponent.get_data_units">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_data_units</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        DataComponent get_data_units method</span>
+<span class="sd">        </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict</span>
+<span class="sd">            A new dict copy of all the `keys:units`</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_simulation_data_units</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="DataComponent.reset">
+<a class="viewcode-back" href="../../../api_Components.html#LaserPy_Quantum.Components.DataComponent.reset">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">save_simulation</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;DataComponent reset method to override&quot;&quot;&quot;</span>
+        <span class="c1">#return super().reset()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_save_simulation</span> <span class="o">=</span> <span class="n">save_simulation</span></div>
+
+
+<div class="viewcode-block" id="DataComponent.output_port">
+<a class="viewcode-back" href="../../../api_Components.html#LaserPy_Quantum.Components.DataComponent.output_port">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">output_port</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">:</span><span class="nb">dict</span><span class="o">=</span><span class="p">{}):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;DataComponent output port method to override&quot;&quot;&quot;</span>
+        <span class="c1">#return super().output_port(kwargs)</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">kwargs</span></div>
+</div>
+
+
+<div class="viewcode-block" id="PhysicalComponent">
+<a class="viewcode-back" href="../../../index.html#LaserPy_Quantum.Components.PhysicalComponent">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">PhysicalComponent</span><span class="p">(</span><span class="n">DataComponent</span><span class="p">,</span> <span class="n">TimeComponent</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    PhysicalComponent class</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="s2">&quot;default_physical_component&quot;</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>  
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;PhysicalComponent _data value to override&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_simulation_data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;_data&#39;</span><span class="p">:[]}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_simulation_data_units</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;_data&#39;</span><span class="p">:</span><span class="sa">r</span><span class="s2">&quot; $(u)$&quot;</span><span class="p">}</span>
+
+<div class="viewcode-block" id="PhysicalComponent.simulate">
+<a class="viewcode-back" href="../../../index.html#LaserPy_Quantum.Components.PhysicalComponent.simulate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">simulate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clock</span><span class="p">:</span> <span class="n">Clock</span><span class="p">,</span> <span class="n">_data</span><span class="p">:</span> <span class="nb">float</span><span class="o">|</span><span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;PhysicalComponent simulate method to override&quot;&quot;&quot;</span>
+        <span class="c1">#return super().simulate(args)</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">_data</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="mi">100</span></div>
+
+
+<div class="viewcode-block" id="PhysicalComponent.input_port">
+<a class="viewcode-back" href="../../../index.html#LaserPy_Quantum.Components.PhysicalComponent.input_port">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">input_port</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;PhysicalComponent input port method to override&quot;&quot;&quot;</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;clock&#39;</span><span class="p">:</span><span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;_data&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+        <span class="k">return</span> <span class="n">kwargs</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Anshurup Gupta.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

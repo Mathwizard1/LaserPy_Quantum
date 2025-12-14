@@ -1,0 +1,585 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Components &mdash; LaserPy_Quantum 0.0.9 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=f7cdbf68"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Specialized Components" href="api_SpecializedComponents.html" />
+    <link rel="prev" title="LaserPy_Quantum Documentation" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            LaserPy_Quantum
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Components</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#public-components">Public components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#LaserPy_Quantum.Components.Clock"><code class="docutils literal notranslate"><span class="pre">Clock</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#LaserPy_Quantum.Components.Clock.dt"><code class="docutils literal notranslate"><span class="pre">Clock.dt</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#LaserPy_Quantum.Components.Clock.t"><code class="docutils literal notranslate"><span class="pre">Clock.t</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#LaserPy_Quantum.Components.Clock.running"><code class="docutils literal notranslate"><span class="pre">Clock.running</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#LaserPy_Quantum.Components.Clock.set"><code class="docutils literal notranslate"><span class="pre">Clock.set()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#LaserPy_Quantum.Components.Clock.update"><code class="docutils literal notranslate"><span class="pre">Clock.update()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#LaserPy_Quantum.Components.Clock.output_port"><code class="docutils literal notranslate"><span class="pre">Clock.output_port()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#LaserPy_Quantum.Components.TimeComponent"><code class="docutils literal notranslate"><span class="pre">TimeComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#LaserPy_Quantum.Components.TimeComponent.simulate"><code class="docutils literal notranslate"><span class="pre">TimeComponent.simulate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#LaserPy_Quantum.Components.TimeComponent.input_port"><code class="docutils literal notranslate"><span class="pre">TimeComponent.input_port()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#LaserPy_Quantum.Components.DataComponent"><code class="docutils literal notranslate"><span class="pre">DataComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#LaserPy_Quantum.Components.DataComponent.store_data"><code class="docutils literal notranslate"><span class="pre">DataComponent.store_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#LaserPy_Quantum.Components.DataComponent.reset_data"><code class="docutils literal notranslate"><span class="pre">DataComponent.reset_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#LaserPy_Quantum.Components.DataComponent.display_data"><code class="docutils literal notranslate"><span class="pre">DataComponent.display_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#LaserPy_Quantum.Components.DataComponent.get_data"><code class="docutils literal notranslate"><span class="pre">DataComponent.get_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#LaserPy_Quantum.Components.DataComponent.get_data_units"><code class="docutils literal notranslate"><span class="pre">DataComponent.get_data_units()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#LaserPy_Quantum.Components.DataComponent.reset"><code class="docutils literal notranslate"><span class="pre">DataComponent.reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#LaserPy_Quantum.Components.DataComponent.output_port"><code class="docutils literal notranslate"><span class="pre">DataComponent.output_port()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#LaserPy_Quantum.Components.PhysicalComponent"><code class="docutils literal notranslate"><span class="pre">PhysicalComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#LaserPy_Quantum.Components.PhysicalComponent.simulate"><code class="docutils literal notranslate"><span class="pre">PhysicalComponent.simulate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#LaserPy_Quantum.Components.PhysicalComponent.input_port"><code class="docutils literal notranslate"><span class="pre">PhysicalComponent.input_port()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#noise-and-waveforms">Noise and waveforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#LaserPy_Quantum.Components.LangevinNoise"><code class="docutils literal notranslate"><span class="pre">LangevinNoise</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#LaserPy_Quantum.Components.ArbitaryWave"><code class="docutils literal notranslate"><span class="pre">ArbitaryWave</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#LaserPy_Quantum.Components.ArbitaryWave.WaveSignal"><code class="docutils literal notranslate"><span class="pre">ArbitaryWave.WaveSignal()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#LaserPy_Quantum.Components.StaticWave"><code class="docutils literal notranslate"><span class="pre">StaticWave</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#LaserPy_Quantum.Components.StaticWave.WaveSignal"><code class="docutils literal notranslate"><span class="pre">StaticWave.WaveSignal()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#LaserPy_Quantum.Components.PulseWave"><code class="docutils literal notranslate"><span class="pre">PulseWave</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#LaserPy_Quantum.Components.PulseWave.WaveSignal"><code class="docutils literal notranslate"><span class="pre">PulseWave.WaveSignal()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#LaserPy_Quantum.Components.AlternatingPulseWave"><code class="docutils literal notranslate"><span class="pre">AlternatingPulseWave</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#LaserPy_Quantum.Components.AlternatingPulseWave.WaveSignal"><code class="docutils literal notranslate"><span class="pre">AlternatingPulseWave.WaveSignal()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#LaserPy_Quantum.Components.ArbitaryWaveGenerator"><code class="docutils literal notranslate"><span class="pre">ArbitaryWaveGenerator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#LaserPy_Quantum.Components.ArbitaryWaveGenerator.signals"><code class="docutils literal notranslate"><span class="pre">ArbitaryWaveGenerator.signals</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#LaserPy_Quantum.Components.ArbitaryWaveGenerator.set"><code class="docutils literal notranslate"><span class="pre">ArbitaryWaveGenerator.set()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#LaserPy_Quantum.Components.ArbitaryWaveGenerator.simulate"><code class="docutils literal notranslate"><span class="pre">ArbitaryWaveGenerator.simulate()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#simulation-wiring">Simulation wiring</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#LaserPy_Quantum.Components.Connection"><code class="docutils literal notranslate"><span class="pre">Connection</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#LaserPy_Quantum.Components.Connection.reset_data"><code class="docutils literal notranslate"><span class="pre">Connection.reset_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#LaserPy_Quantum.Components.Connection.reset"><code class="docutils literal notranslate"><span class="pre">Connection.reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#LaserPy_Quantum.Components.Connection.simulate"><code class="docutils literal notranslate"><span class="pre">Connection.simulate()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#LaserPy_Quantum.Components.Simulator"><code class="docutils literal notranslate"><span class="pre">Simulator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#LaserPy_Quantum.Components.Simulator.store_data"><code class="docutils literal notranslate"><span class="pre">Simulator.store_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#LaserPy_Quantum.Components.Simulator.reset_data"><code class="docutils literal notranslate"><span class="pre">Simulator.reset_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#LaserPy_Quantum.Components.Simulator.display_data"><code class="docutils literal notranslate"><span class="pre">Simulator.display_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#LaserPy_Quantum.Components.Simulator.get_data"><code class="docutils literal notranslate"><span class="pre">Simulator.get_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#LaserPy_Quantum.Components.Simulator.reset"><code class="docutils literal notranslate"><span class="pre">Simulator.reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#LaserPy_Quantum.Components.Simulator.set"><code class="docutils literal notranslate"><span class="pre">Simulator.set()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#LaserPy_Quantum.Components.Simulator.simulate"><code class="docutils literal notranslate"><span class="pre">Simulator.simulate()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api_SpecializedComponents.html">Specialized Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_Others.html">Photon and Utilities</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">LaserPy_Quantum</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Components</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/api_Components.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="components">
+<h1>Components<a class="headerlink" href="#components" title="Link to this heading"></a></h1>
+<p>Core component classes and signals.</p>
+<section id="public-components">
+<h2>Public components<a class="headerlink" href="#public-components" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.Clock">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Clock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'default_clock'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/Components/Component.html#Clock"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LaserPy_Quantum.Components.Clock" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Component</span></code></p>
+<p>Represents the clock class.</p>
+<p>This class manages the time counter and all operations on it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dt</strong> (<em>float</em>) – Time step variable for the simulation</p></li>
+<li><p><strong>sampling_rate</strong> (int = <cite>1</cite>) – Integral postive multiple of <strong>dt</strong>, simulation data are stored on these time steps</p></li>
+<li><p><strong>name</strong> (str = <cite>“default_clock”</cite>) – Name of the component</p></li>
+</ul>
+</dd>
+<dt class="field-even">Variables<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>dt</strong> (<em>float</em>) – Time step variable for the simulation</p></li>
+<li><p><strong>_sampling_rate</strong> (<em>float</em>) – Integral postive multiple of <strong>dt</strong>, simulation data are stored on these time steps</p></li>
+<li><p><strong>t</strong> (float = <cite>0.0</cite>) – Time counter variable for simulation</p></li>
+<li><p><strong>_t_sample</strong> (float = <cite>0.0</cite>) – Helper for sampling rate</p></li>
+<li><p><strong>running</strong> (bool = <cite>True</cite>) – Clock status for time updates</p></li>
+<li><p><strong>_t_final</strong> (float = <cite>0.0</cite>) – Time at which to stop simulation and set <strong>running</strong> to <cite>False</cite></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.Clock.dt">
+<span class="sig-name descname"><span class="pre">dt</span></span><a class="headerlink" href="#LaserPy_Quantum.Components.Clock.dt" title="Link to this definition"></a></dt>
+<dd><p>Clock Delta time data</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.Clock.t">
+<span class="sig-name descname"><span class="pre">t</span></span><a class="headerlink" href="#LaserPy_Quantum.Components.Clock.t" title="Link to this definition"></a></dt>
+<dd><p>Clock time data</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.Clock.running">
+<span class="sig-name descname"><span class="pre">running</span></span><a class="headerlink" href="#LaserPy_Quantum.Components.Clock.running" title="Link to this definition"></a></dt>
+<dd><p>Clock running state data</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.Clock.set">
+<span class="sig-name descname"><span class="pre">set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t_final</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/Components/Component.html#Clock.set"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LaserPy_Quantum.Components.Clock.set" title="Link to this definition"></a></dt>
+<dd><p>Clock set method</p>
+<p>Sets <strong>t_final</strong> and <strong>t</strong>.
+Also sets <strong>running</strong> to <cite>True</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>t_final</strong> (<em>float</em>)</p></li>
+<li><p><strong>t</strong> (float = <cite>None</cite>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.Clock.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/Components/Component.html#Clock.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LaserPy_Quantum.Components.Clock.update" title="Link to this definition"></a></dt>
+<dd><p>Clock update method</p>
+<p>Checks if <strong>t</strong> exceeded <strong>_t_final</strong>, then sets <strong>running</strong> to <cite>False</cite> and returns.
+Else it updates both <strong>t</strong> and <strong>_t_sample</strong> by one time step, ie <strong>dt</strong>.
+If <strong>_t_sample</strong> exceeds <strong>_sampling_rate</strong> then sets <strong>_t_sample</strong> to <cite>0.0</cite></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.Clock.output_port">
+<span class="sig-name descname"><span class="pre">output_port</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/Components/Component.html#Clock.output_port"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LaserPy_Quantum.Components.Clock.output_port" title="Link to this definition"></a></dt>
+<dd><p>Clock output port method</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>kwargs</strong> (dict = <cite>{}</cite>)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>kwargs</strong> – Returns dict with <cite>‘clock’:self</cite> data</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.TimeComponent">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">TimeComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'default_time_component'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/Components/Component.html#TimeComponent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LaserPy_Quantum.Components.TimeComponent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Component</span></code></p>
+<p>Represents the base timecomponent class.</p>
+<p>This class is the base class for all components which are time dependent on clock data.</p>
+<p>It provides methods for simulate() and input_port() based on clock data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (str = <cite>“default_time_component”</cite>) – Name of the component</p>
+</dd>
+<dt class="field-even">Variables<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>_data</strong> (any = <cite>0</cite>) – A container for specific data according to child classes</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.TimeComponent.simulate">
+<span class="sig-name descname"><span class="pre">simulate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">clock</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#LaserPy_Quantum.Components.Clock" title="LaserPy_Quantum.Components.Component.Clock"><span class="pre">Clock</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/Components/Component.html#TimeComponent.simulate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LaserPy_Quantum.Components.TimeComponent.simulate" title="Link to this definition"></a></dt>
+<dd><p>TimeComponent simulate method (to override)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>clock</strong> (<strong>Clock</strong>)</p></li>
+<li><p><strong>method</strong> (<em>Empty</em>)</p></li>
+<li><p><strong>------------</strong></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.TimeComponent.input_port">
+<span class="sig-name descname"><span class="pre">input_port</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/Components/Component.html#TimeComponent.input_port"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LaserPy_Quantum.Components.TimeComponent.input_port" title="Link to this definition"></a></dt>
+<dd><p>TimeComponent input port method (to override)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>kwargs</strong> – Returns dict with <cite>‘clock’:None</cite> data as requirements for simulate()</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.DataComponent">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DataComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'default_data_component'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/Components/Component.html#DataComponent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LaserPy_Quantum.Components.DataComponent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Component</span></code></p>
+<p>Represents the base datacomponent class.</p>
+<p>This class manages simulation data, and their corresponding data units.</p>
+<p>It provides methods for data handling like get, display, store.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (str = <cite>“default_data_component”</cite>) – Name of the component</p>
+</dd>
+<dt class="field-even">Variables<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>_simulation_data</strong> (dict = <cite>{}</cite>) – A dict storing keys and it stores values for those keys, at each sampling time step</p></li>
+<li><p><strong>_simulation_data_units</strong> (dict = <cite>{}</cite>) – A dict storing units corresponding to the keys</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.DataComponent.store_data">
+<span class="sig-name descname"><span class="pre">store_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/Components/Component.html#DataComponent.store_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LaserPy_Quantum.Components.DataComponent.store_data" title="Link to this definition"></a></dt>
+<dd><p>DataComponent store_data method</p>
+<p>Stores data for each key based on matching name of variable and key.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.DataComponent.reset_data">
+<span class="sig-name descname"><span class="pre">reset_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/Components/Component.html#DataComponent.reset_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LaserPy_Quantum.Components.DataComponent.reset_data" title="Link to this definition"></a></dt>
+<dd><p>DataComponent reset_data method</p>
+<p>Clears all key data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.DataComponent.display_data">
+<span class="sig-name descname"><span class="pre">display_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">simulation_keys</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/Components/Component.html#DataComponent.display_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LaserPy_Quantum.Components.DataComponent.display_data" title="Link to this definition"></a></dt>
+<dd><p>DataComponent display_data method</p>
+<p>Plots stored data of the component based on <strong>time_data</strong> and <strong>simulation_keys</strong>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>time_data</strong> (<em>ndarray</em>) – A numpy array containing sequential time data</p></li>
+<li><p><strong>simulation_keys</strong> (tuple[str, …] = <cite>None</cite>) – An optional tuple of strings containing keys for which to plot data, Default all defined keys</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.DataComponent.get_data">
+<span class="sig-name descname"><span class="pre">get_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/Components/Component.html#DataComponent.get_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LaserPy_Quantum.Components.DataComponent.get_data" title="Link to this definition"></a></dt>
+<dd><p>DataComponent get_data method</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.DataComponent.get_data_units">
+<span class="sig-name descname"><span class="pre">get_data_units</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/Components/Component.html#DataComponent.get_data_units"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LaserPy_Quantum.Components.DataComponent.get_data_units" title="Link to this definition"></a></dt>
+<dd><p>DataComponent get_data_units method</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A new dict copy of all the <cite>keys:units</cite></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.DataComponent.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">save_simulation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/Components/Component.html#DataComponent.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LaserPy_Quantum.Components.DataComponent.reset" title="Link to this definition"></a></dt>
+<dd><p>DataComponent reset method to override</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.DataComponent.output_port">
+<span class="sig-name descname"><span class="pre">output_port</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/Components/Component.html#DataComponent.output_port"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LaserPy_Quantum.Components.DataComponent.output_port" title="Link to this definition"></a></dt>
+<dd><p>DataComponent output port method to override</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.PhysicalComponent">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PhysicalComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'default_physical_component'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/Components/Component.html#PhysicalComponent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LaserPy_Quantum.Components.PhysicalComponent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#LaserPy_Quantum.Components.DataComponent" title="LaserPy_Quantum.Components.Component.DataComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataComponent</span></code></a>, <a class="reference internal" href="#LaserPy_Quantum.Components.TimeComponent" title="LaserPy_Quantum.Components.Component.TimeComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">TimeComponent</span></code></a></p>
+<p>PhysicalComponent class</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.PhysicalComponent.simulate">
+<span class="sig-name descname"><span class="pre">simulate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">clock</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#LaserPy_Quantum.Components.Clock" title="LaserPy_Quantum.Components.Component.Clock"><span class="pre">Clock</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/Components/Component.html#PhysicalComponent.simulate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LaserPy_Quantum.Components.PhysicalComponent.simulate" title="Link to this definition"></a></dt>
+<dd><p>PhysicalComponent simulate method to override</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.PhysicalComponent.input_port">
+<span class="sig-name descname"><span class="pre">input_port</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/Components/Component.html#PhysicalComponent.input_port"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LaserPy_Quantum.Components.PhysicalComponent.input_port" title="Link to this definition"></a></dt>
+<dd><p>PhysicalComponent input port method to override</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="noise-and-waveforms">
+<h2>Noise and waveforms<a class="headerlink" href="#noise-and-waveforms" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.LangevinNoise">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">LangevinNoise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Mu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Std_dev</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'default_langevin_noise'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/Components/Signal.html#LangevinNoise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LaserPy_Quantum.Components.LangevinNoise" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">NoNoise</span></code></p>
+<p>LangevinNoise class</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.ArbitaryWave">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ArbitaryWave</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_unit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_spread</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/Components/Signal.html#ArbitaryWave"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LaserPy_Quantum.Components.ArbitaryWave" title="Link to this definition"></a></dt>
+<dd><p>ArbitaryWave class</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.ArbitaryWave.WaveSignal">
+<span class="sig-name descname"><span class="pre">WaveSignal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/Components/Signal.html#ArbitaryWave.WaveSignal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LaserPy_Quantum.Components.ArbitaryWave.WaveSignal" title="Link to this definition"></a></dt>
+<dd><p>ArbitaryWave WaveSignal method to override</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.StaticWave">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">StaticWave</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">static_val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/Components/Signal.html#StaticWave"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LaserPy_Quantum.Components.StaticWave" title="Link to this definition"></a></dt>
+<dd><p>StaticWave class</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.StaticWave.WaveSignal">
+<span class="sig-name descname"><span class="pre">WaveSignal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/Components/Signal.html#StaticWave.WaveSignal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LaserPy_Quantum.Components.StaticWave.WaveSignal" title="Link to this definition"></a></dt>
+<dd><p>StaticWave WaveSignal method</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.PulseWave">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PulseWave</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pulse_low</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pulse_high</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_unit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_spread</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/Components/Signal.html#PulseWave"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LaserPy_Quantum.Components.PulseWave" title="Link to this definition"></a></dt>
+<dd><p>PulseWave class</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.PulseWave.WaveSignal">
+<span class="sig-name descname"><span class="pre">WaveSignal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/Components/Signal.html#PulseWave.WaveSignal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LaserPy_Quantum.Components.PulseWave.WaveSignal" title="Link to this definition"></a></dt>
+<dd><p>PulseWave WaveSignal method</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.AlternatingPulseWave">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">AlternatingPulseWave</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">static_val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pulse_val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_unit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_spread</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/Components/Signal.html#AlternatingPulseWave"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LaserPy_Quantum.Components.AlternatingPulseWave" title="Link to this definition"></a></dt>
+<dd><p>AlternatingPulseWave class</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.AlternatingPulseWave.WaveSignal">
+<span class="sig-name descname"><span class="pre">WaveSignal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/Components/Signal.html#AlternatingPulseWave.WaveSignal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LaserPy_Quantum.Components.AlternatingPulseWave.WaveSignal" title="Link to this definition"></a></dt>
+<dd><p>AlternatingPulseWave WaveSignal method</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.ArbitaryWaveGenerator">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ArbitaryWaveGenerator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">arg</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/Components/Signal.html#ArbitaryWaveGenerator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LaserPy_Quantum.Components.ArbitaryWaveGenerator" title="Link to this definition"></a></dt>
+<dd><p>ArbitaryWaveGenerator Singleton class</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.ArbitaryWaveGenerator.signals">
+<span class="sig-name descname"><span class="pre">signals</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#LaserPy_Quantum.Components.ArbitaryWave" title="LaserPy_Quantum.Components.Signal.ArbitaryWave"><span class="pre">ArbitaryWave</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#LaserPy_Quantum.Components.ArbitaryWaveGenerator.signals" title="Link to this definition"></a></dt>
+<dd><p>Signals dictionary for ArbitaryWaves</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.ArbitaryWaveGenerator.set">
+<span class="sig-name descname"><span class="pre">set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arbitarywaves</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#LaserPy_Quantum.Components.ArbitaryWave" title="LaserPy_Quantum.Components.Signal.ArbitaryWave"><span class="pre">ArbitaryWave</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#LaserPy_Quantum.Components.ArbitaryWave" title="LaserPy_Quantum.Components.Signal.ArbitaryWave"><span class="pre">ArbitaryWave</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/Components/Signal.html#ArbitaryWaveGenerator.set"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LaserPy_Quantum.Components.ArbitaryWaveGenerator.set" title="Link to this definition"></a></dt>
+<dd><p>ArbitaryWaveGenerator set method</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.ArbitaryWaveGenerator.simulate">
+<span class="sig-name descname"><span class="pre">simulate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">clock</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#LaserPy_Quantum.Components.Clock" title="LaserPy_Quantum.Components.Component.Clock"><span class="pre">Clock</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">signal_keys</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/LaserPy_Quantum/Components/Signal.html#ArbitaryWaveGenerator.simulate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LaserPy_Quantum.Components.ArbitaryWaveGenerator.simulate" title="Link to this definition"></a></dt>
+<dd><p>ArbitaryWaveGenerator simulate method</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="simulation-wiring">
+<h2>Simulation wiring<a class="headerlink" href="#simulation-wiring" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.Connection">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Connection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_components</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Component</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Component</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_components</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Component</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Component</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'default_connection'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/Components/Simulator.html#Connection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LaserPy_Quantum.Components.Connection" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#LaserPy_Quantum.Components.TimeComponent" title="LaserPy_Quantum.Components.Component.TimeComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">TimeComponent</span></code></a></p>
+<p>Connection class</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.Connection.reset_data">
+<span class="sig-name descname"><span class="pre">reset_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/Components/Simulator.html#Connection.reset_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LaserPy_Quantum.Components.Connection.reset_data" title="Link to this definition"></a></dt>
+<dd><p>Connection reset_data method</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.Connection.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">save_simulation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/Components/Simulator.html#Connection.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LaserPy_Quantum.Components.Connection.reset" title="Link to this definition"></a></dt>
+<dd><p>Connection reset method</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.Connection.simulate">
+<span class="sig-name descname"><span class="pre">simulate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">clock</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#LaserPy_Quantum.Components.Clock" title="LaserPy_Quantum.Components.Component.Clock"><span class="pre">Clock</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/Components/Simulator.html#Connection.simulate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LaserPy_Quantum.Components.Connection.simulate" title="Link to this definition"></a></dt>
+<dd><p>Connection simulate method</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.Simulator">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Simulator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simulation_clock</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#LaserPy_Quantum.Components.Clock" title="LaserPy_Quantum.Components.Component.Clock"><span class="pre">Clock</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'default_simulator'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/Components/Simulator.html#Simulator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LaserPy_Quantum.Components.Simulator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#LaserPy_Quantum.Components.DataComponent" title="LaserPy_Quantum.Components.Component.DataComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataComponent</span></code></a></p>
+<p>Simulator class</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.Simulator.store_data">
+<span class="sig-name descname"><span class="pre">store_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/Components/Simulator.html#Simulator.store_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LaserPy_Quantum.Components.Simulator.store_data" title="Link to this definition"></a></dt>
+<dd><p>Simulator store_data method</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.Simulator.reset_data">
+<span class="sig-name descname"><span class="pre">reset_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/Components/Simulator.html#Simulator.reset_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LaserPy_Quantum.Components.Simulator.reset_data" title="Link to this definition"></a></dt>
+<dd><p>Simulator reset_data method</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.Simulator.display_data">
+<span class="sig-name descname"><span class="pre">display_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/Components/Simulator.html#Simulator.display_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LaserPy_Quantum.Components.Simulator.display_data" title="Link to this definition"></a></dt>
+<dd><p>Simulator display_data method</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.Simulator.get_data">
+<span class="sig-name descname"><span class="pre">get_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/Components/Simulator.html#Simulator.get_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LaserPy_Quantum.Components.Simulator.get_data" title="Link to this definition"></a></dt>
+<dd><p>Simulator get_data method</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.Simulator.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">save_simulation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/Components/Simulator.html#Simulator.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LaserPy_Quantum.Components.Simulator.reset" title="Link to this definition"></a></dt>
+<dd><p>Simulator reset method</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.Simulator.set">
+<span class="sig-name descname"><span class="pre">set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connections</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#LaserPy_Quantum.Components.Connection" title="LaserPy_Quantum.Components.Simulator.Connection"><span class="pre">Connection</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#LaserPy_Quantum.Components.Connection" title="LaserPy_Quantum.Components.Simulator.Connection"><span class="pre">Connection</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/Components/Simulator.html#Simulator.set"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LaserPy_Quantum.Components.Simulator.set" title="Link to this definition"></a></dt>
+<dd><p>Simulator set method</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="LaserPy_Quantum.Components.Simulator.simulate">
+<span class="sig-name descname"><span class="pre">simulate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/Components/Simulator.html#Simulator.simulate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#LaserPy_Quantum.Components.Simulator.simulate" title="Link to this definition"></a></dt>
+<dd><p>Simulator simulate method</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="LaserPy_Quantum Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="api_SpecializedComponents.html" class="btn btn-neutral float-right" title="Specialized Components" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Anshurup Gupta.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

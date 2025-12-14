@@ -1,0 +1,329 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LaserPy_Quantum.SpecializedComponents.Interferometer &mdash; LaserPy_Quantum 0.0.9 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=f7cdbf68"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            LaserPy_Quantum
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_Components.html">Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_SpecializedComponents.html">Specialized Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_Others.html">Photon and Utilities</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">LaserPy_Quantum</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">LaserPy_Quantum.SpecializedComponents.Interferometer</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for LaserPy_Quantum.SpecializedComponents.Interferometer</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">empty</span><span class="p">,</span> <span class="n">zeros</span>
+<span class="p">)</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">..Components.Component</span><span class="w"> </span><span class="kn">import</span> <span class="n">Component</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..Components</span><span class="w"> </span><span class="kn">import</span> <span class="n">Clock</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.PhotonDetector</span><span class="w"> </span><span class="kn">import</span> <span class="n">SinglePhotonDetector</span>
+
+<span class="c1">#from collections import namedtuple</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.SimpleDevices</span><span class="w"> </span><span class="kn">import</span> <span class="n">PhaseSample</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.SimpleDevices</span><span class="w"> </span><span class="kn">import</span> <span class="n">BeamSplitter</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">..Photon</span><span class="w"> </span><span class="kn">import</span> <span class="n">Photon</span><span class="p">,</span> <span class="n">Empty_Photon</span><span class="p">,</span> <span class="n">Photon_dtype</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">..utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">display_class_instances_data</span>
+
+<span class="c1"># TODO multiport</span>
+<span class="c1"># Handling multiport SinglePhotonDetector</span>
+
+<div class="viewcode-block" id="AsymmetricMachZehnderInterferometer">
+<a class="viewcode-back" href="../../../index.html#LaserPy_Quantum.SpecializedComponents.AsymmetricMachZehnderInterferometer">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">AsymmetricMachZehnderInterferometer</span><span class="p">(</span><span class="n">Component</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    AsymmetricMachZehnderInterferometer class</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clock</span><span class="p">:</span><span class="n">Clock</span><span class="p">,</span> <span class="n">time_delay</span><span class="p">:</span><span class="nb">float</span><span class="p">,</span> 
+                <span class="n">splitting_ratio_ti</span><span class="p">:</span><span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">splitting_ratio_tf</span><span class="p">:</span><span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
+                <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;default_asymmetric_machzehnder_interferometer&quot;</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+        <span class="c1"># AMZI parameters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_time_delay</span> <span class="o">=</span> <span class="n">time_delay</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_input_beam_splitter</span> <span class="o">=</span> <span class="n">BeamSplitter</span><span class="p">(</span><span class="n">splitting_ratio_ti</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;input_beam_splitter&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output_beam_joiner</span> <span class="o">=</span> <span class="n">BeamSplitter</span><span class="p">(</span><span class="n">splitting_ratio_tf</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;output_beam_joiner&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Phase controls</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_short_arm_phase_sample</span> <span class="o">=</span> <span class="n">PhaseSample</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;short_arm_phase_sample&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_long_arm_phase_sample</span> <span class="o">=</span> <span class="n">PhaseSample</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;long_arm_phase_sample&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Measure ports</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_SPD0</span> <span class="o">=</span> <span class="n">SinglePhotonDetector</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;SPD_0&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_SPD1</span> <span class="o">=</span> <span class="n">SinglePhotonDetector</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;SPD_π&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_photon</span><span class="p">:</span> <span class="n">Photon</span> <span class="o">=</span> <span class="n">Empty_Photon</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;photon data for AsymmetricMachZehnderInterferometer&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_photon_port2</span><span class="p">:</span> <span class="n">Photon</span> <span class="o">=</span> <span class="n">Empty_Photon</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;photon_port2 data for AsymmetricMachZehnderInterferometer&quot;&quot;&quot;</span>
+
+        <span class="c1"># Delay buffer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">time_delay</span> <span class="o">/</span> <span class="n">clock</span><span class="o">.</span><span class="n">dt</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_idx</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_field_buffer</span><span class="p">:</span> <span class="n">ndarray</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_buffer_size</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">Photon_dtype</span><span class="p">)</span>
+                
+        <span class="c1"># Populate the default record</span>
+        <span class="n">default_record</span> <span class="o">=</span> <span class="n">empty</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">Photon_dtype</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">default_record</span><span class="p">[</span><span class="s1">&#39;field&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Empty_Photon</span><span class="o">.</span><span class="n">field</span>
+        <span class="n">default_record</span><span class="p">[</span><span class="s1">&#39;frequency&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Empty_Photon</span><span class="o">.</span><span class="n">frequency</span>
+        <span class="n">default_record</span><span class="p">[</span><span class="s1">&#39;photon_number&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Empty_Photon</span><span class="o">.</span><span class="n">photon_number</span>
+        <span class="n">default_record</span><span class="p">[</span><span class="s1">&#39;source_phase&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Empty_Photon</span><span class="o">.</span><span class="n">source_phase</span>
+        <span class="n">default_record</span><span class="p">[</span><span class="s1">&#39;polarization&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Empty_Photon</span><span class="o">.</span><span class="n">polarization</span>
+        <span class="n">default_record</span><span class="p">[</span><span class="s1">&#39;polarization_basis&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Empty_Photon</span><span class="o">.</span><span class="n">polarization_basis</span>
+        
+        <span class="c1"># Fill the entire buffer with this stored default record</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_default_record</span> <span class="o">=</span> <span class="n">default_record</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_field_buffer</span><span class="p">[:]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default_record</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_handle_SPD_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;AsymmetricMachZehnderInterferometer _handle_SPD_data method&quot;&quot;&quot;</span>
+        <span class="k">if</span><span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_save_simulation</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> did not save simulation data&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">elif</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_SPD0</span><span class="o">.</span><span class="n">_handle_get_data</span><span class="p">()</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_SPD1</span><span class="o">.</span><span class="n">_handle_get_data</span><span class="p">()):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> cannot get SPD data&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+<div class="viewcode-block" id="AsymmetricMachZehnderInterferometer.store_data">
+<a class="viewcode-back" href="../../../index.html#LaserPy_Quantum.SpecializedComponents.AsymmetricMachZehnderInterferometer.store_data">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">store_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;AsymmetricMachZehnderInterferometer store_data method&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_SPD0</span><span class="o">.</span><span class="n">store_data</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_SPD1</span><span class="o">.</span><span class="n">store_data</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="AsymmetricMachZehnderInterferometer.reset_data">
+<a class="viewcode-back" href="../../../index.html#LaserPy_Quantum.SpecializedComponents.AsymmetricMachZehnderInterferometer.reset_data">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reset_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;AsymmetricMachZehnderInterferometer reset_data method&quot;&quot;&quot;</span>
+        <span class="c1">#return super().reset_data()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_field_buffer</span><span class="p">[:]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default_record</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_SPD0</span><span class="o">.</span><span class="n">reset_data</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_SPD1</span><span class="o">.</span><span class="n">reset_data</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="AsymmetricMachZehnderInterferometer.reset">
+<a class="viewcode-back" href="../../../index.html#LaserPy_Quantum.SpecializedComponents.AsymmetricMachZehnderInterferometer.reset">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">save_simulation</span><span class="p">:</span><span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;AsymmetricMachZehnderInterferometer reset method&quot;&quot;&quot;</span>
+        <span class="c1">#return super().reset(args)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_save_simulation</span> <span class="o">=</span> <span class="n">save_simulation</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_SPD0</span><span class="o">.</span><span class="n">reset</span><span class="p">(</span><span class="n">save_simulation</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_SPD1</span><span class="o">.</span><span class="n">reset</span><span class="p">(</span><span class="n">save_simulation</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AsymmetricMachZehnderInterferometer.set_beam_splitters">
+<a class="viewcode-back" href="../../../index.html#LaserPy_Quantum.SpecializedComponents.AsymmetricMachZehnderInterferometer.set_beam_splitters">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_beam_splitters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">splitting_ratio_ti</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">splitting_ratio_tf</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;AsymmetricMachZehnderInterferometer set beam splitters method&quot;&quot;&quot;</span>
+        <span class="c1">#return super().set()</span>
+
+        <span class="c1"># Beam splitters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_input_beam_splitter</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">splitting_ratio_ti</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output_beam_joiner</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">splitting_ratio_tf</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="AsymmetricMachZehnderInterferometer.set_phases">
+<a class="viewcode-back" href="../../../index.html#LaserPy_Quantum.SpecializedComponents.AsymmetricMachZehnderInterferometer.set_phases">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_phases</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">short_arm_phase</span><span class="p">:</span>  <span class="nb">float</span><span class="o">|</span><span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">long_arm_phase</span><span class="p">:</span>  <span class="nb">float</span><span class="o">|</span><span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> 
+                <span class="n">short_arm_phase_interval</span><span class="p">:</span> <span class="nb">float</span><span class="o">|</span><span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">long_arm_phase_interval</span><span class="p">:</span> <span class="nb">float</span><span class="o">|</span><span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;AsymmetricMachZehnderInterferometer set phases method&quot;&quot;&quot;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">short_arm_phase</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_short_arm_phase_sample</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">short_arm_phase</span><span class="p">,</span> 
+                                        <span class="n">phase_interval</span><span class="o">=</span> <span class="n">short_arm_phase_interval</span><span class="p">)</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">long_arm_phase</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_long_arm_phase_sample</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">long_arm_phase</span><span class="p">,</span> 
+                                        <span class="n">phase_interval</span><span class="o">=</span> <span class="n">long_arm_phase_interval</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AsymmetricMachZehnderInterferometer.simulate">
+<a class="viewcode-back" href="../../../index.html#LaserPy_Quantum.SpecializedComponents.AsymmetricMachZehnderInterferometer.simulate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">simulate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">photon</span><span class="p">:</span> <span class="n">Photon</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;AsymmetricMachZehnderInterferometer simulate method&quot;&quot;&quot;</span>
+        <span class="c1">#return super().simulate(clock)</span>
+
+        <span class="c1"># input field</span>
+        <span class="n">photon_short</span><span class="p">,</span> <span class="n">photon_long</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_input_beam_splitter</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">photon</span><span class="p">)</span>
+
+        <span class="c1"># long arm</span>
+        <span class="n">photon_long</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_long_arm_phase_sample</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">photon_long</span><span class="p">)</span>
+
+        <span class="c1"># Handle buffer</span>
+        <span class="n">outgoing_photon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_field_buffer</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_buffer_idx</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+        <span class="c1"># Update buffer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_field_buffer</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_buffer_idx</span><span class="p">][</span><span class="s1">&#39;field&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">photon_long</span><span class="o">.</span><span class="n">field</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_field_buffer</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_buffer_idx</span><span class="p">][</span><span class="s1">&#39;frequency&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">photon_long</span><span class="o">.</span><span class="n">frequency</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_field_buffer</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_buffer_idx</span><span class="p">][</span><span class="s1">&#39;photon_number&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">photon_long</span><span class="o">.</span><span class="n">photon_number</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_field_buffer</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_buffer_idx</span><span class="p">][</span><span class="s1">&#39;source_phase&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">photon_long</span><span class="o">.</span><span class="n">source_phase</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_field_buffer</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_buffer_idx</span><span class="p">][</span><span class="s1">&#39;polarization&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">photon_long</span><span class="o">.</span><span class="n">polarization</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_field_buffer</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_buffer_idx</span><span class="p">][</span><span class="s1">&#39;polarization_basis&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">photon_long</span><span class="o">.</span><span class="n">polarization_basis</span>
+        
+        <span class="c1"># Stored Photon</span>
+        <span class="n">photon_long</span> <span class="o">=</span> <span class="n">Photon</span><span class="p">(</span>
+            <span class="n">field</span><span class="o">=</span><span class="n">outgoing_photon</span><span class="p">[</span><span class="s1">&#39;field&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span>
+            <span class="n">frequency</span><span class="o">=</span><span class="n">outgoing_photon</span><span class="p">[</span><span class="s1">&#39;frequency&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span>
+            <span class="n">photon_number</span><span class="o">=</span><span class="n">outgoing_photon</span><span class="p">[</span><span class="s1">&#39;photon_number&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span>
+            <span class="n">source_phase</span><span class="o">=</span><span class="n">outgoing_photon</span><span class="p">[</span><span class="s1">&#39;source_phase&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span>
+            <span class="n">polarization</span><span class="o">=</span><span class="n">outgoing_photon</span><span class="p">[</span><span class="s1">&#39;polarization&#39;</span><span class="p">],</span>            <span class="c1"># (complex, 2) should be stored/retrieved intact</span>
+            <span class="n">polarization_basis</span><span class="o">=</span><span class="n">outgoing_photon</span><span class="p">[</span><span class="s1">&#39;polarization_basis&#39;</span><span class="p">]</span> <span class="c1"># Enum objects should be stored/retrieved intact</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_idx</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_buffer_idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_size</span>
+
+        <span class="c1"># short arm</span>
+        <span class="n">photon_short</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_short_arm_phase_sample</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">photon_short</span><span class="p">)</span>
+
+        <span class="c1"># Recombine</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_photon</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_photon_port2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_output_beam_joiner</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">photon_short</span><span class="p">,</span> <span class="n">photon_long</span><span class="p">)</span>
+
+        <span class="c1"># Photon Detection</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_SPD0</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_photon</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_SPD1</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_photon_port2</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AsymmetricMachZehnderInterferometer.input_port">
+<a class="viewcode-back" href="../../../index.html#LaserPy_Quantum.SpecializedComponents.AsymmetricMachZehnderInterferometer.input_port">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">input_port</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;AsymmetricMachZehnderInterferometer input port method&quot;&quot;&quot;</span>
+        <span class="c1">#return super().input_port()</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;photon&#39;</span><span class="p">:</span><span class="kc">None</span><span class="p">}</span>
+        <span class="k">return</span> <span class="n">kwargs</span></div>
+
+    
+<div class="viewcode-block" id="AsymmetricMachZehnderInterferometer.output_port">
+<a class="viewcode-back" href="../../../index.html#LaserPy_Quantum.SpecializedComponents.AsymmetricMachZehnderInterferometer.output_port">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">output_port</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;AsymmetricMachZehnderInterferometer output port method&quot;&quot;&quot;</span>
+        <span class="c1">#return super().output_port(kwargs)</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;photon&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_photon</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;photon_port2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_photon_port2</span>
+        <span class="k">return</span> <span class="n">kwargs</span></div>
+
+    
+<div class="viewcode-block" id="AsymmetricMachZehnderInterferometer.display_SPD_data">
+<a class="viewcode-back" href="../../../index.html#LaserPy_Quantum.SpecializedComponents.AsymmetricMachZehnderInterferometer.display_SPD_data">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">display_SPD_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_data</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span> <span class="n">simulation_keys</span><span class="p">:</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span><span class="o">...</span><span class="p">]</span><span class="o">|</span><span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;AsymmetricMachZehnderInterferometer display_SPD_data method&quot;&quot;&quot;</span>        
+        
+        <span class="c1"># Handle cases</span>
+        <span class="k">if</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_handle_SPD_data</span><span class="p">()):</span>
+            <span class="k">return</span>
+
+        <span class="n">display_class_instances_data</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_SPD0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_SPD1</span><span class="p">),</span> <span class="n">time_data</span><span class="p">,</span> <span class="n">simulation_keys</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AsymmetricMachZehnderInterferometer.get_SPD_data">
+<a class="viewcode-back" href="../../../index.html#LaserPy_Quantum.SpecializedComponents.AsymmetricMachZehnderInterferometer.get_SPD_data">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_SPD_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;AsymmetricMachZehnderInterferometer get_SPD_data method&quot;&quot;&quot;</span>
+
+        <span class="c1"># Handle cases</span>
+        <span class="k">if</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_handle_SPD_data</span><span class="p">()):</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Store SPD data</span>
+        <span class="n">_SPD_data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;SPD0&#39;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">_SPD0</span><span class="o">.</span><span class="n">get_data</span><span class="p">(),</span> <span class="s1">&#39;SPD1&#39;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">_SPD1</span><span class="o">.</span><span class="n">get_data</span><span class="p">()}</span>
+        <span class="k">return</span> <span class="n">_SPD_data</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Anshurup Gupta.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

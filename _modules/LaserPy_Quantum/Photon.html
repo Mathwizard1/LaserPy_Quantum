@@ -1,0 +1,191 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LaserPy_Quantum.Photon &mdash; LaserPy_Quantum 0.0.9 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=f7cdbf68"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            LaserPy_Quantum
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api_Components.html">Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_SpecializedComponents.html">Specialized Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_Others.html">Photon and Utilities</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">LaserPy_Quantum</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">LaserPy_Quantum.Photon</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for LaserPy_Quantum.Photon</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span> <span class="k">as</span> <span class="n">data_field</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.QuantumOptics</span><span class="w"> </span><span class="kn">import</span> <span class="n">PolarizationBasis</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">linalg</span><span class="p">,</span> 
+    <span class="n">ndarray</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">object_</span><span class="p">,</span>
+    <span class="n">array</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="nb">abs</span>
+<span class="p">)</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.Constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">ERR_TOLERANCE</span>
+
+<span class="sd">&quot;&quot;&quot; Photon dtype for Photon class&quot;&quot;&quot;</span>
+<span class="n">Photon_dtype</span> <span class="o">=</span> <span class="n">dtype</span><span class="p">([</span>
+    <span class="p">(</span><span class="s1">&#39;field&#39;</span><span class="p">,</span> <span class="nb">complex</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;frequency&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;photon_number&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;source_phase&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;polarization&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nb">complex</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s1">&#39;polarization_basis&#39;</span><span class="p">,</span> <span class="n">object_</span><span class="p">)</span> <span class="c1"># For simplicity, store the Python Enum object</span>
+<span class="p">])</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">default_polarization</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;:meta private:&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">array</span><span class="p">([</span><span class="mf">1.0</span> <span class="o">+</span> <span class="mi">0</span><span class="n">j</span><span class="p">,</span> <span class="mf">0.0</span> <span class="o">+</span> <span class="mi">0</span><span class="n">j</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Photon">
+<a class="viewcode-back" href="../../index.html#LaserPy_Quantum.Photon.Photon">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">slots</span><span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Photon</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Photon class.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Microscopic parameters </span>
+    <span class="n">field</span><span class="p">:</span> <span class="nb">complex</span>
+    <span class="n">frequency</span><span class="p">:</span> <span class="nb">float</span>
+
+    <span class="c1"># Macroscopic parameters</span>
+    <span class="n">photon_number</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">ERR_TOLERANCE</span>
+    <span class="n">source_phase</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">ERR_TOLERANCE</span>
+
+    <span class="c1"># Polarization qubit components (basis)</span>
+    <span class="c1"># amplitude for [|X&gt;, |Y&gt;]</span>
+    <span class="n">polarization</span><span class="p">:</span> <span class="n">ndarray</span> <span class="o">=</span> <span class="n">data_field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span> <span class="n">default_polarization</span><span class="p">)</span>
+
+    <span class="c1"># Label of the basis</span>
+    <span class="n">polarization_basis</span><span class="p">:</span> <span class="n">PolarizationBasis</span> <span class="o">=</span> <span class="n">PolarizationBasis</span><span class="o">.</span><span class="n">LINEAR_HV</span>
+
+<div class="viewcode-block" id="Photon.from_photon">
+<a class="viewcode-back" href="../../index.html#LaserPy_Quantum.Photon.Photon.from_photon">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_photon</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Photon</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Photon</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Photon classmethod from photon constructor&quot;&quot;&quot;</span>
+        <span class="n">photon</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
+        <span class="n">photon</span><span class="o">.</span><span class="n">field</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">field</span>
+        <span class="n">photon</span><span class="o">.</span><span class="n">frequency</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">frequency</span>
+        <span class="n">photon</span><span class="o">.</span><span class="n">photon_number</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">photon_number</span>
+        <span class="n">photon</span><span class="o">.</span><span class="n">source_phase</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">source_phase</span>
+        <span class="n">photon</span><span class="o">.</span><span class="n">polarization</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">polarization</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">photon</span><span class="o">.</span><span class="n">polarization_basis</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">polarization_basis</span>
+        <span class="k">return</span> <span class="n">photon</span></div>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">amplitude</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;amplitude (V/m) of the field&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">phase</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;phase (rad) of the field&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">angle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">))</span>
+
+<div class="viewcode-block" id="Photon.normalized_polarization_vector">
+<a class="viewcode-back" href="../../index.html#LaserPy_Quantum.Photon.Photon.normalized_polarization_vector">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">normalized_polarization_vector</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return normalized polarization vector&quot;&quot;&quot;</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">polarization</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">polarization</span> <span class="o">/</span> <span class="n">n</span> <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">polarization</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Photon(ω=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">frequency</span><span class="si">:</span><span class="s2">.4e</span><span class="si">}</span><span class="s2">rad/s, |E|=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">amplitude</span><span class="si">:</span><span class="s2">.4e</span><span class="si">}</span><span class="s2">V/m, φ=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">phase</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">rad)&quot;</span><span class="p">)</span></div>
+
+
+<span class="n">Empty_Photon</span> <span class="o">=</span> <span class="n">Photon</span><span class="p">(</span><span class="n">ERR_TOLERANCE</span> <span class="o">+</span> <span class="mi">0</span><span class="n">j</span><span class="p">,</span> <span class="n">ERR_TOLERANCE</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Anshurup Gupta.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
