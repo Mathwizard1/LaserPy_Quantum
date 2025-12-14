@@ -28,11 +28,8 @@ class AsymmetricMachZehnderInterferometer(Component):
     """
     def __init__(self, clock:Clock, time_delay:float, 
                 splitting_ratio_ti:float = 0.5, splitting_ratio_tf:float = 0.5,
-                save_simulation: bool = False, name: str = "default_asymmetric_machzehnder_interferometer"):
+                name: str = "default_asymmetric_machzehnder_interferometer"):
         super().__init__(name)
-
-        # Simulation parameters
-        self._save_simulation = save_simulation
 
         # AMZI parameters
         self._time_delay = time_delay
@@ -44,8 +41,8 @@ class AsymmetricMachZehnderInterferometer(Component):
         self._long_arm_phase_sample = PhaseSample(name="long_arm_phase_sample")
 
         # Measure ports
-        self._SPD0 = SinglePhotonDetector(save_simulation=self._save_simulation, name="SPD_0")
-        self._SPD1 = SinglePhotonDetector(save_simulation=self._save_simulation, name="SPD_π")
+        self._SPD0 = SinglePhotonDetector(name="SPD_0")
+        self._SPD1 = SinglePhotonDetector(name="SPD_π")
 
         self._photon: Photon = Empty_Photon
         """photon data for AsymmetricMachZehnderInterferometer"""

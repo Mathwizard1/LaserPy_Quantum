@@ -40,8 +40,8 @@ class Laser(PhysicalComponent):
     _Gamma_cap = LaserPyConstants.get('Gamma_cap')
     _Kappa = LaserPyConstants.get('Kappa')
 
-    def __init__(self, laser_wavelength:float = 1550.0e-9, save_simulation: bool = False, name: str = "default_laser"):
-        super().__init__(save_simulation, name)
+    def __init__(self, laser_wavelength:float = 1550.0e-9, name: str = "default_laser"):
+        super().__init__(name)
         self.photon_number: float = ERR_TOLERANCE
         """photon number data for Laser"""
 

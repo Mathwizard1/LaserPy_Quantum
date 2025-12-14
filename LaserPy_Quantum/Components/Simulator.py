@@ -78,8 +78,8 @@ class Simulator(DataComponent):
     """
     Simulator class
     """
-    def __init__(self, simulation_clock:Clock, save_simulation:bool=False, name:str="default_simulator"):
-        super().__init__(save_simulation, name)
+    def __init__(self, simulation_clock:Clock, name:str="default_simulator"):
+        super().__init__(name)
         self.simulation_clock:Clock = simulation_clock
 
         # Data storage
