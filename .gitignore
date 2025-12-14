@@ -1,5 +1,6 @@
 LaserPy_Quantum/__pycache__/*
 LaserPy_Quantum/Components/__pycache__/*
+LaserPy_Quantum/QuantumOptics/__pycache__/*
 LaserPy_Quantum/SpecializedComponents/__pycache__/*
 bench/__pycache__/*
 
@@ -12,5 +13,4 @@ LaserPy_Quantum/rust_optimizer/target/*
 LaserPy.egg-info/*
 dist/*
 LaserPy_Quantum.egg-info/*
-
 
