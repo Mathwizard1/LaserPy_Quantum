@@ -92,9 +92,9 @@ Feel free to fork the repo, open issues, or submit pull requests.
 
 LaserPy_Quantum is distributed under a dual-license model to support both the open-source community and commercial applications.
 
--   **Open Source:** For academic, personal, and open-source projects, LaserPy_Quantum is licensed under the **GNU General Public License v3.0 (GPLv3)**.
+-   **Open Source:** For academic, personal, and open-source projects, LaserPy_Quantum is licensed under the **GNU General Public License v3.0 (GPLv3)**. *Note: Modifications or Derived works on Components system requires maintainer's permission.*
 
--   **Commercial:** For use in proprietary or commercial software where the terms of *GPLv3 are not suitable*, a separate commercial license is available. Please contact the maintainer to discuss licensing options.
+-   **Commercial:** For use in proprietary or commercial software where the terms of *GPLv3 are not suitable*, a separate **commercial license is available**. Please contact the maintainer to discuss licensing options.
 
 ### 📬 Contact
 
