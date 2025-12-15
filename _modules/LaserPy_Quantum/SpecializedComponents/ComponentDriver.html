@@ -10,6 +10,7 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
 
   
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../_static/documentation_options.js?v=f7cdbf68"></script>
@@ -30,6 +31,7 @@
           
           <a href="../../../index.html" class="icon icon-home">
             LaserPy_Quantum
+              <img src="../../../_static/logo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -78,22 +80,27 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">..Components</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArbitaryWave</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">..Components</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArbitaryWaveGenerator</span>
 
-<span class="c1"># TODO optimise dt and t_unit into a global config singleton</span>
-<span class="c1"># class ModulationFunction(ArbitaryWave):</span>
-<span class="c1">#     &quot;&quot;&quot; </span>
-<span class="c1">#     ModulationFunction class</span>
-<span class="c1">#     &quot;&quot;&quot;</span>
-<span class="c1">#     def __init__(self, name: str, t_unit: float, dt: float, modulation_bits= []):</span>
-<span class="c1">#         super().__init__(name, t_unit)</span>
-<span class="c1">#         self.idx = 0</span>
-<span class="c1">#         self.modulation_bits = modulation_bits</span>
-<span class="c1">#         self.modulation_bit = 1</span>
-<span class="c1">#         self.dt = dt</span>
+<div class="viewcode-block" id="ModulationFunction">
+<a class="viewcode-back" href="../../../index.html#LaserPy_Quantum.SpecializedComponents.ModulationFunction">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ModulationFunction</span><span class="p">(</span><span class="n">ArbitaryWave</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">    ModulationFunction class</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">t_unit</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">dt</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">modulation_bits</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span><span class="o">...</span><span class="p">]):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">t_unit</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">idx</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">modulation_bits</span> <span class="o">=</span> <span class="n">modulation_bits</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">modulation_bit</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dt</span> <span class="o">=</span> <span class="n">dt</span>
 
-<span class="c1">#     def WaveSignal(self, t):</span>
-<span class="c1">#         if(t &lt;= self.dt):</span>
-<span class="c1">#             self.idx = (self.idx + 1) % len(self.modulation_bits)</span>
-<span class="c1">#         return self.modulation_bits[self.idx] == self.modulation_bit</span>
+<div class="viewcode-block" id="ModulationFunction.WaveSignal">
+<a class="viewcode-back" href="../../../index.html#LaserPy_Quantum.SpecializedComponents.ModulationFunction.WaveSignal">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">WaveSignal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">t</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dt</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">idx</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">modulation_bits</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">modulation_bits</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">idx</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">modulation_bit</span></div>
+</div>
+
 
 <div class="viewcode-block" id="CurrentDriver">
 <a class="viewcode-back" href="../../../index.html#LaserPy_Quantum.SpecializedComponents.CurrentDriver">[docs]</a>

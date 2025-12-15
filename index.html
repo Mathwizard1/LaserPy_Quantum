@@ -11,6 +11,7 @@
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
   
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="_static/documentation_options.js?v=f7cdbf68"></script>
@@ -32,6 +33,7 @@
           
           <a href="#" class="icon icon-home">
             LaserPy_Quantum
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -63,7 +65,7 @@
       <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">LaserPy_Quantum Documentation</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+              <a href="https://github.com/Mathwizard1/LaserPy_Quantum/blob/index.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -368,6 +370,19 @@ If <strong>_t_sample</strong> exceeds <strong>_sampling_rate</strong> then sets 
 
 <dl class="py class">
 <dt class="sig sig-object py">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ModulationFunction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_unit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modulation_bits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/SpecializedComponents/ComponentDriver.html#ModulationFunction"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="api_Components.html#LaserPy_Quantum.Components.ArbitaryWave" title="LaserPy_Quantum.Components.Signal.ArbitaryWave"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArbitaryWave</span></code></a></p>
+<p>ModulationFunction class</p>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">WaveSignal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/SpecializedComponents/ComponentDriver.html#ModulationFunction.WaveSignal"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>ArbitaryWave WaveSignal method to override</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CurrentDriver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">AWG</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="api_Components.html#LaserPy_Quantum.Components.ArbitaryWaveGenerator" title="LaserPy_Quantum.Components.Signal.ArbitaryWaveGenerator"><span class="pre">ArbitaryWaveGenerator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'default_current_driver'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/SpecializedComponents/ComponentDriver.html#CurrentDriver"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference internal" href="api_Components.html#LaserPy_Quantum.Components.TimeComponent" title="LaserPy_Quantum.Components.Component.TimeComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">TimeComponent</span></code></a></p>
 <p>CurrentDriver class</p>
@@ -393,7 +408,7 @@ If <strong>_t_sample</strong> exceeds <strong>_sampling_rate</strong> then sets 
 
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Laser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">laser_wavelength</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.55e-06</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'default_laser'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/SpecializedComponents/Laser.html#Laser"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Laser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">laser_wavelength</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'default_laser'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/LaserPy_Quantum/SpecializedComponents/Laser.html#Laser"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference internal" href="api_Components.html#LaserPy_Quantum.Components.PhysicalComponent" title="LaserPy_Quantum.Components.Component.PhysicalComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">PhysicalComponent</span></code></a></p>
 <p>Laser class</p>
 <dl class="py method">

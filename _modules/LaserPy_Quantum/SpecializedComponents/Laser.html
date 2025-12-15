@@ -10,6 +10,7 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
 
   
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../_static/documentation_options.js?v=f7cdbf68"></script>
@@ -30,6 +31,7 @@
           
           <a href="../../../index.html" class="icon icon-home">
             LaserPy_Quantum
+              <img src="../../../_static/logo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -114,7 +116,7 @@
     <span class="n">_Gamma_cap</span> <span class="o">=</span> <span class="n">LaserPyConstants</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Gamma_cap&#39;</span><span class="p">)</span>
     <span class="n">_Kappa</span> <span class="o">=</span> <span class="n">LaserPyConstants</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Kappa&#39;</span><span class="p">)</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">laser_wavelength</span><span class="p">:</span><span class="nb">float</span> <span class="o">=</span> <span class="mf">1550.0e-9</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;default_laser&quot;</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">laser_wavelength</span><span class="p">:</span><span class="nb">float</span><span class="o">|</span><span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;default_laser&quot;</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">photon_number</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">ERR_TOLERANCE</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;photon number data for Laser&quot;&quot;&quot;</span>
@@ -134,6 +136,8 @@
                                            <span class="s1">&#39;carrier&#39;</span><span class="p">:</span><span class="sa">r</span><span class="s2">&quot; $(m^{-3})$&quot;</span><span class="p">,</span> <span class="s1">&#39;phase&#39;</span><span class="p">:</span><span class="sa">r</span><span class="s2">&quot; $(rad)$&quot;</span><span class="p">}</span>
 
         <span class="c1"># Laser class private data</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">laser_wavelength</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="n">laser_wavelength</span> <span class="o">=</span> <span class="n">LaserPyConstants</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Laser_wavelength&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_free_running_freq</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">*</span> <span class="n">UniversalConstants</span><span class="o">.</span><span class="n">C</span><span class="o">.</span><span class="n">value</span> <span class="o">/</span> <span class="n">laser_wavelength</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;free running frequency data for Laser&quot;&quot;&quot;</span>
 
