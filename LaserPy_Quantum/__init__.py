@@ -15,6 +15,7 @@ from .Components import ArbitaryWaveGenerator
 from .Components import Connection
 from .Components import Simulator
 
+from .SpecializedComponents import ModulationFunction
 from .SpecializedComponents import CurrentDriver
 from .SpecializedComponents import Laser
 from .SpecializedComponents import VariableOpticalAttenuator
@@ -41,6 +42,7 @@ __all__ = [
     "Connection",
     "Simulator",
 
+    "ModulationFunction",
     "CurrentDriver",
     "Laser",
     "VariableOpticalAttenuator",

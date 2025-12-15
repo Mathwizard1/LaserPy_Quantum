@@ -1,5 +1,7 @@
 # LaserPy_Quantum
 
+![LaserPy_Quantum](./LaserPy_Quantum/LaserPy_Quantum.png)
+
 **LaserPy_Quantum** provides an intuitive interface for simulating complex laser interactions, current drivers, and interferometer setups, with plans to offload performance-critical components to Rust for high-speed numerical computations. A *high-level, open-source Python library designed for the theoretical simulation of laser systems* in quantum communication and cryptographic protocols.
 
 ### 🚀 Features
@@ -11,11 +13,15 @@
 - Clock-driven simulation engine for precise time-step control.
 - Extensible architecture for future modules and Rust acceleration.
 
+### 📖 Documentation
+
+LaserPy_Quantum documentation on *[Read the docs](https://mathwizard1.github.io/LaserPy_Quantum/)*.
+
 ### 📦 Installation
 
 - LaserPy_Quantum is now on *[pypi](https://pypi.org/project/LaserPy-Quantum/)*.
 ```bash
-pip install LaserPy-Quantum
+pip install LaserPy_Quantum
 ```
 
 - Also, LaserPy_Quantum is under active development and welcomes opensource developers. Clone the repository locally:

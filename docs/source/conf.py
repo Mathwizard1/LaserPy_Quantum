@@ -55,11 +55,11 @@ html_theme_options = {
 }
 
 html_static_path = ['_static']
-#html_logo = '_static/logo.png'       # Add your logo here later
-#html_favicon = '_static/favicon.ico' # Add favicon later
+html_logo = '_static/logo.png'       # Add your logo here later
+html_favicon = '_static/favicon.ico' # Add favicon later
 
 html_context = {
-    'display_github': False,
+    'display_github': True,
     'github_user': 'Mathwizard1',
     'github_repo': 'LaserPy_Quantum',
 }
