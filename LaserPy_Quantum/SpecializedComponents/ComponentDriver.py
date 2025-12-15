@@ -6,22 +6,21 @@ from ..Components import TimeComponent
 from ..Components import ArbitaryWave
 from ..Components import ArbitaryWaveGenerator
 
-# TODO optimise dt and t_unit into a global config singleton
-# class ModulationFunction(ArbitaryWave):
-#     """ 
-#     ModulationFunction class
-#     """
-#     def __init__(self, name: str, t_unit: float, dt: float, modulation_bits= []):
-#         super().__init__(name, t_unit)
-#         self.idx = 0
-#         self.modulation_bits = modulation_bits
-#         self.modulation_bit = 1
-#         self.dt = dt
+class ModulationFunction(ArbitaryWave):
+    """ 
+    ModulationFunction class
+    """
+    def __init__(self, name: str, t_unit: float, dt: float, modulation_bits: tuple[int,...]):
+        super().__init__(name, t_unit)
+        self.idx = 0
+        self.modulation_bits = modulation_bits
+        self.modulation_bit = 1
+        self.dt = dt
 
-#     def WaveSignal(self, t):
-#         if(t <= self.dt):
-#             self.idx = (self.idx + 1) % len(self.modulation_bits)
-#         return self.modulation_bits[self.idx] == self.modulation_bit
+    def WaveSignal(self, t):
+        if(t <= self.dt):
+            self.idx = (self.idx + 1) % len(self.modulation_bits)
+        return self.modulation_bits[self.idx] == self.modulation_bit
 
 class CurrentDriver(TimeComponent):
     """ 

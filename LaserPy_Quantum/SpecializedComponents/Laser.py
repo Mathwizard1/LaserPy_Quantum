@@ -40,7 +40,7 @@ class Laser(PhysicalComponent):
     _Gamma_cap = LaserPyConstants.get('Gamma_cap')
     _Kappa = LaserPyConstants.get('Kappa')
 
-    def __init__(self, laser_wavelength:float = 1550.0e-9, name: str = "default_laser"):
+    def __init__(self, laser_wavelength:float|None = None, name: str = "default_laser"):
         super().__init__(name)
         self.photon_number: float = ERR_TOLERANCE
         """photon number data for Laser"""
@@ -60,6 +60,8 @@ class Laser(PhysicalComponent):
                                            'carrier':r" $(m^{-3})$", 'phase':r" $(rad)$"}
 
         # Laser class private data
+        if(laser_wavelength is None):
+            laser_wavelength = LaserPyConstants.get('Laser_wavelength')
         self._free_running_freq = 2 * pi * UniversalConstants.C.value / laser_wavelength
         """free running frequency data for Laser"""
 

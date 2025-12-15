@@ -10,17 +10,12 @@ from ..Components import Clock
 
 from .PhotonDetector import SinglePhotonDetector
 
-#from collections import namedtuple
-
 from .SimpleDevices import PhaseSample
 from .SimpleDevices import BeamSplitter
 
 from ..Photon import Photon, Empty_Photon, Photon_dtype
 
 from ..utils import display_class_instances_data
-
-# TODO multiport
-# Handling multiport SinglePhotonDetector
 
 class AsymmetricMachZehnderInterferometer(Component):
     """

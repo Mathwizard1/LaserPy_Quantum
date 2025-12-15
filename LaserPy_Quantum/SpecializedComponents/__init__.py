@@ -1,5 +1,6 @@
 """ SpecializedComponents for LaserPy_Quantum """
 
+from .ComponentDriver import ModulationFunction
 from .ComponentDriver import CurrentDriver
 
 from .Interferometer import AsymmetricMachZehnderInterferometer
@@ -16,6 +17,7 @@ from .SimpleDevices import PhaseSample, Mirror
 from .SimpleDevices import BeamSplitter
 
 __all__ = [
+    "ModulationFunction",
     "CurrentDriver",
     
     "AsymmetricMachZehnderInterferometer",
