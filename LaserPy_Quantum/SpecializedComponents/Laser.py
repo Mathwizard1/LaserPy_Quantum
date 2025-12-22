@@ -5,8 +5,8 @@ from numpy import (
     pi,
 )
 
-from ..Components import Clock
-from ..Components import PhysicalComponent
+from ..Components.Component import Clock
+from ..Components.Component import PhysicalComponent
 
 from ..Components.Signal import NoNoise
 

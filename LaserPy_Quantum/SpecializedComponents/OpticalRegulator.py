@@ -3,7 +3,7 @@ from __future__ import annotations
 from LaserPy_Quantum.Components.Component import Clock
 
 from ..Components.Component import Component
-from ..Components import Connection
+from ..Components.Simulator import Connection
 
 from .ComponentDriver import CurrentDriver
 from .Laser import Laser

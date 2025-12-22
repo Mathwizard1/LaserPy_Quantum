@@ -6,7 +6,7 @@ from numpy import (
     square
 )
 
-from ..Components import DataComponent
+from ..Components.Component import DataComponent
 
 from ..Constants import LaserPyConstants
 

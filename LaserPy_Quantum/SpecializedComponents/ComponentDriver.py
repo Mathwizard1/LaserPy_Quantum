@@ -1,10 +1,10 @@
 from __future__ import annotations
 
-from ..Components import Clock
-from ..Components import TimeComponent
+from ..Components.Component import Clock
+from ..Components.Component import TimeComponent
 
-from ..Components import ArbitaryWave
-from ..Components import ArbitaryWaveGenerator
+from ..Components.Signal import ArbitaryWave
+from ..Components.Signal import ArbitaryWaveGenerator
 
 class ModulationFunction(ArbitaryWave):
     """ 

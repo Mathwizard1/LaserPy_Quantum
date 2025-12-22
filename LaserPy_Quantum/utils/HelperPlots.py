@@ -1,14 +1,13 @@
-from typing import NamedTuple
-
 import matplotlib.pyplot as plt
+
 from numpy import (
     ndarray,
     array, mod,
     pi
 )
-from .Components import DataComponent
+from ..Components.Component import DataComponent
 
-from .Constants import FIG_WIDTH, FIG_HEIGHT
+from ..Constants import FIG_WIDTH, FIG_HEIGHT
 
 def display_class_instances_data(class_instances: tuple[DataComponent,...], time_data: ndarray, simulation_keys:tuple[str,...]|None=None):
     """display merged graph for comparision of same class members data"""
@@ -63,16 +62,7 @@ def display_class_instances_data(class_instances: tuple[DataComponent,...], time
     plt.show()
         
 ########## Circulator Dependency Resolved ##########
-from .SpecializedComponents.ComponentDriver import CurrentDriver
-from .SpecializedComponents.Laser import Laser
-
-class LaserRunnerComponents(NamedTuple):
-    """
-    LaserRunnerComponents class\n
-    A compact class for {'current_driver', 'laser'}.
-    """
-    current_driver: CurrentDriver
-    laser: Laser
+from ..SpecializedComponents.Laser import Laser
 
 def get_time_delay_phase_correction(laser: Laser, time_delay: float):
     """

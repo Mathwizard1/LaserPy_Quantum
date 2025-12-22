@@ -6,7 +6,7 @@ from numpy import (
 )
 
 from ..Components.Component import Component
-from ..Components import Clock
+from ..Components.Component import Clock
 
 from .PhotonDetector import SinglePhotonDetector
 
@@ -56,8 +56,8 @@ class AsymmetricMachZehnderInterferometer(Component):
         default_record['frequency'] = Empty_Photon.frequency
         default_record['photon_number'] = Empty_Photon.photon_number
         default_record['source_phase'] = Empty_Photon.source_phase
-        default_record['polarization'] = Empty_Photon.polarization
-        default_record['polarization_basis'] = Empty_Photon.polarization_basis
+        default_record['photon_id'] = Empty_Photon.photon_id
+        default_record['quantum_state'] = Empty_Photon.quantum_state
         
         # Fill the entire buffer with this stored default record
         self._default_record = default_record
@@ -130,8 +130,8 @@ class AsymmetricMachZehnderInterferometer(Component):
         self._field_buffer[self._buffer_idx]['frequency'] = photon_long.frequency
         self._field_buffer[self._buffer_idx]['photon_number'] = photon_long.photon_number
         self._field_buffer[self._buffer_idx]['source_phase'] = photon_long.source_phase
-        self._field_buffer[self._buffer_idx]['polarization'] = photon_long.polarization
-        self._field_buffer[self._buffer_idx]['polarization_basis'] = photon_long.polarization_basis
+        self._field_buffer[self._buffer_idx]['photon_id'] = Empty_Photon.photon_id
+        self._field_buffer[self._buffer_idx]['quantum_state'] = Empty_Photon.quantum_state
         
         # Stored Photon
         photon_long = Photon(
@@ -139,8 +139,8 @@ class AsymmetricMachZehnderInterferometer(Component):
             frequency=outgoing_photon['frequency'].item(),
             photon_number=outgoing_photon['photon_number'].item(),
             source_phase=outgoing_photon['source_phase'].item(),
-            polarization=outgoing_photon['polarization'],            # (complex, 2) should be stored/retrieved intact
-            polarization_basis=outgoing_photon['polarization_basis'] # Enum objects should be stored/retrieved intact
+            photon_id=outgoing_photon['photon_id'].item(),            
+            quantum_state=outgoing_photon['quantum_state']          # Python objects should be stored/retrieved intact
         )
 
         self._buffer_idx = (self._buffer_idx + 1) % self._buffer_size

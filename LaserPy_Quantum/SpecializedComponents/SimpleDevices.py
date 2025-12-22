@@ -81,7 +81,7 @@ class BeamSplitter(Component):
         self._photon_reflected: Photon = Empty_Photon
 
     def set(self, splitting_ratio_t: float):
-        """BeamSplitter reset method"""
+        """BeamSplitter set method"""
         #return super().set()
         self._t = sqrt(splitting_ratio_t)
         self._r = exp(0.5j * pi) * sqrt(1 - splitting_ratio_t)
