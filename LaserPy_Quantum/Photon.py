@@ -7,8 +7,6 @@ from numpy import (
     angle, abs
 )
 
-from .QuantumOptics.Entangler import QuantumState
-
 from .Constants import ERR_TOLERANCE
 
 """ Photon dtype for Photon class"""
@@ -17,8 +15,7 @@ Photon_dtype = dtype([
     ('frequency', float),
     ('photon_number', float),
     ('source_phase', float),
-    ('photon_id', int),
-    ('quantum_state', object_) # For simplicity, store the Python object
+    ('quantum_entangler', object_) # For simplicity, store the Python object
 ])
 
 @dataclass(slots= True)
@@ -35,8 +32,7 @@ class Photon:
     source_phase: float = ERR_TOLERANCE
 
     # Quantum parameters
-    photon_id: int = -1
-    quantum_state: QuantumState|None = None
+    quantum_entangler: QuantumEntangler|None = None
 
     @classmethod
     def from_photon(cls, other: Photon) -> Photon:
@@ -48,8 +44,7 @@ class Photon:
         photon.photon_number = other.photon_number
         photon.source_phase = other.source_phase
 
-        photon.photon_id = other.photon_id
-        photon.quantum_state = other.quantum_state
+        photon.quantum_entangler = other.quantum_entangler
         return photon
 
     @property
@@ -66,3 +61,5 @@ class Photon:
         return (f"Photon(ω={self.frequency:.4e}rad/s, |E|={self.amplitude:.4e}V/m, φ={self.phase:.2f}rad)")
 
 Empty_Photon = Photon(ERR_TOLERANCE + 0j, ERR_TOLERANCE)
+
+from .QuantumOptics.Entangler import QuantumEntangler

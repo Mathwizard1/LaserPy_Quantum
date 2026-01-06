@@ -56,8 +56,8 @@ class AsymmetricMachZehnderInterferometer(Component):
         default_record['frequency'] = Empty_Photon.frequency
         default_record['photon_number'] = Empty_Photon.photon_number
         default_record['source_phase'] = Empty_Photon.source_phase
-        default_record['photon_id'] = Empty_Photon.photon_id
-        default_record['quantum_state'] = Empty_Photon.quantum_state
+
+        default_record['quantum_entangler'] = Empty_Photon.quantum_entangler
         
         # Fill the entire buffer with this stored default record
         self._default_record = default_record
@@ -130,8 +130,8 @@ class AsymmetricMachZehnderInterferometer(Component):
         self._field_buffer[self._buffer_idx]['frequency'] = photon_long.frequency
         self._field_buffer[self._buffer_idx]['photon_number'] = photon_long.photon_number
         self._field_buffer[self._buffer_idx]['source_phase'] = photon_long.source_phase
-        self._field_buffer[self._buffer_idx]['photon_id'] = Empty_Photon.photon_id
-        self._field_buffer[self._buffer_idx]['quantum_state'] = Empty_Photon.quantum_state
+
+        self._field_buffer[self._buffer_idx]['quantum_entangler'] = Empty_Photon.quantum_entangler
         
         # Stored Photon
         photon_long = Photon(
@@ -139,8 +139,8 @@ class AsymmetricMachZehnderInterferometer(Component):
             frequency=outgoing_photon['frequency'].item(),
             photon_number=outgoing_photon['photon_number'].item(),
             source_phase=outgoing_photon['source_phase'].item(),
-            photon_id=outgoing_photon['photon_id'].item(),            
-            quantum_state=outgoing_photon['quantum_state']          # Python objects should be stored/retrieved intact
+          
+            quantum_entangler=outgoing_photon['quantum_entangler']          # Python objects should be stored/retrieved intact
         )
 
         self._buffer_idx = (self._buffer_idx + 1) % self._buffer_size
