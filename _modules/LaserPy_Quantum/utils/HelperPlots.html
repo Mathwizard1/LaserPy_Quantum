@@ -1,24 +1,24 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../../">
+<html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LaserPy_Quantum.utils &mdash; LaserPy_Quantum 0.0.9 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+  <title>LaserPy_Quantum.utils.HelperPlots &mdash; LaserPy_Quantum 0.0.9 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
 
   
-    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
-      <script src="../../_static/jquery.js?v=5d32c60e"></script>
-      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=f7cdbf68"></script>
-      <script src="../../_static/doctools.js?v=9bcbadda"></script>
-      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=f7cdbf68"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -29,12 +29,12 @@
 
           
           
-          <a href="../../index.html" class="icon icon-home">
+          <a href="../../../index.html" class="icon icon-home">
             LaserPy_Quantum
-              <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+              <img src="../../../_static/logo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
@@ -42,9 +42,9 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../api_Components.html">Components</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../api_SpecializedComponents.html">Specialized Components</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../api_Others.html">Photon and Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_Components.html">Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_SpecializedComponents.html">Specialized Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_Others.html">Photon and Utilities</a></li>
 </ul>
 
         </div>
@@ -53,16 +53,16 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">LaserPy_Quantum</a>
+          <a href="../../../index.html">LaserPy_Quantum</a>
       </nav>
 
       <div class="wy-nav-content">
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
-      <li class="breadcrumb-item active">LaserPy_Quantum.utils</li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">LaserPy_Quantum.utils.HelperPlots</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -71,21 +71,20 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for LaserPy_Quantum.utils</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">NamedTuple</span>
+  <h1>Source code for LaserPy_Quantum.utils.HelperPlots</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">ndarray</span><span class="p">,</span>
     <span class="n">array</span><span class="p">,</span> <span class="n">mod</span><span class="p">,</span>
     <span class="n">pi</span>
 <span class="p">)</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">.Components</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataComponent</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..Components.Component</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataComponent</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">.Constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">FIG_WIDTH</span><span class="p">,</span> <span class="n">FIG_HEIGHT</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..Constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">FIG_WIDTH</span><span class="p">,</span> <span class="n">FIG_HEIGHT</span>
 
 <div class="viewcode-block" id="display_class_instances_data">
-<a class="viewcode-back" href="../../index.html#LaserPy_Quantum.utils.display_class_instances_data">[docs]</a>
+<a class="viewcode-back" href="../../../index.html#LaserPy_Quantum.utils.display_class_instances_data">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">display_class_instances_data</span><span class="p">(</span><span class="n">class_instances</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">DataComponent</span><span class="p">,</span><span class="o">...</span><span class="p">],</span> <span class="n">time_data</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span> <span class="n">simulation_keys</span><span class="p">:</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span><span class="o">...</span><span class="p">]</span><span class="o">|</span><span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;display merged graph for comparision of same class members data&quot;&quot;&quot;</span>
     <span class="n">class_type</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">class_instances</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -140,22 +139,10 @@
 
         
 <span class="c1">########## Circulator Dependency Resolved ##########</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">.SpecializedComponents.ComponentDriver</span><span class="w"> </span><span class="kn">import</span> <span class="n">CurrentDriver</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">.SpecializedComponents.Laser</span><span class="w"> </span><span class="kn">import</span> <span class="n">Laser</span>
-
-<div class="viewcode-block" id="LaserRunnerComponents">
-<a class="viewcode-back" href="../../api_Others.html#LaserPy_Quantum.utils.LaserRunnerComponents">[docs]</a>
-<span class="k">class</span><span class="w"> </span><span class="nc">LaserRunnerComponents</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    LaserRunnerComponents class\n</span>
-<span class="sd">    A compact class for {&#39;current_driver&#39;, &#39;laser&#39;}.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">current_driver</span><span class="p">:</span> <span class="n">CurrentDriver</span>
-    <span class="n">laser</span><span class="p">:</span> <span class="n">Laser</span></div>
-
+<span class="kn">from</span><span class="w"> </span><span class="nn">..SpecializedComponents.Laser</span><span class="w"> </span><span class="kn">import</span> <span class="n">Laser</span>
 
 <div class="viewcode-block" id="get_time_delay_phase_correction">
-<a class="viewcode-back" href="../../index.html#LaserPy_Quantum.utils.get_time_delay_phase_correction">[docs]</a>
+<a class="viewcode-back" href="../../../index.html#LaserPy_Quantum.utils.get_time_delay_phase_correction">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">get_time_delay_phase_correction</span><span class="p">(</span><span class="n">laser</span><span class="p">:</span> <span class="n">Laser</span><span class="p">,</span> <span class="n">time_delay</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculate the phase correction for a given time delay.</span>
