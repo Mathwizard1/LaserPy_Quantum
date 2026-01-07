@@ -24,8 +24,8 @@ class Photon:
     Photon class.
     """
     # Microscopic parameters 
-    field: complex
-    frequency: float
+    field: complex = ERR_TOLERANCE + 0j
+    frequency: float = ERR_TOLERANCE
 
     # Macroscopic parameters
     photon_number: float = ERR_TOLERANCE
@@ -33,6 +33,13 @@ class Photon:
 
     # Quantum parameters
     quantum_entangler: QuantumEntangler|None = None
+
+    # Allowing id based-hashing
+    def __hash__(self):
+        return id(self)
+
+    def __eq__(self, other):
+        return self is other
 
     @classmethod
     def from_photon(cls, other: Photon) -> Photon:
@@ -60,6 +67,10 @@ class Photon:
     def __repr__(self):
         return (f"Photon(ω={self.frequency:.4e}rad/s, |E|={self.amplitude:.4e}V/m, φ={self.phase:.2f}rad)")
 
-Empty_Photon = Photon(ERR_TOLERANCE + 0j, ERR_TOLERANCE)
+    def set_qubit(self):
+        if(not self.quantum_entangler):
+            self.quantum_entangler = QuantumEntangler((self,))
+        return self.quantum_entangler
+Empty_Photon = Photon()
 
 from .QuantumOptics.Entangler import QuantumEntangler
