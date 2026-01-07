@@ -77,10 +77,11 @@ It allows researchers and engineers to prototype and test theoretical setups bef
 - Expanded library of optical components (modulators, detectors, etc.).
 
 #### TODO list
-0) *DPS QKD simulation verify*
 
 0) convert information passing from dictionary to namedtuples
 1) global config singleton
+
+2) Quantum gates
 
 1) Rust based critical parts off-loading
 2) Component behaviour refinement
